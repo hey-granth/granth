@@ -1,16 +1,95 @@
-# React + Vite
+# **Granth Agarwal — Portfolio**
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, dark-mode, animation-rich portfolio built with React and deployed on Vercel. The site presents backend engineering work, production-grade projects, a published patent, and technical leadership experience in a clean, structured, and recruiter-friendly layout.
 
-Currently, two official plugins are available:
+## **Tech Stack**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+* React
+* Vite
+* React Router
+* Tailwind CSS
+* Framer Motion
+* Vercel (Deployment)
 
-## React Compiler
+## **Features**
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* Permanent dark-mode UI with a minimalist, high-contrast design
+* Smooth micro-interactions and scroll-based animations using Framer Motion
+* Responsive, grid-driven layout
+* Modular component structure optimized for scalability
+* Project, experience, and patent sections based on real production work
+* SEO-ready metadata and clean URL routing
 
-## Expanding the ESLint configuration
+## **Directory Structure**
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```
+src/
+  components/
+    ui/
+    layout/
+    sections/
+  pages/
+  hooks/
+  data/
+  assets/
+  styles/
+  lib/
+public/
+```
+
+## **Sections**
+
+* **Home**: Name, role, tagline, CTAs
+* **About**: Skills, platforms, tools
+* **Experience**: Freelance backend work, Python internship
+* **Projects**: TrustSystem, StandardStitch, MemeTrends
+* **Patent**: Multi-Modal Identity & Behavior Verification System
+* **Community Work**: Elixir Tech Community, GFG ABESEC Chapter
+* **Contact**: Email and social links
+
+## **Getting Started**
+
+Clone the repository:
+
+```
+git clone <repo-url>
+cd portfolio
+```
+
+Install dependencies:
+
+```
+npm install
+```
+
+Run the dev server:
+
+```
+npm run dev
+```
+
+Create a production build:
+
+```
+npm run build
+```
+
+Preview the production build:
+
+```
+npm run preview
+```
+
+## **Deploying to Vercel**
+
+* Push the repository to GitHub
+* Import the project into Vercel
+* Select the Vite framework preset
+* Build command: `npm run build`
+* Output directory: `dist`
+
+Vercel handles the rest.
+
+## **License**
+
+MIT License.
