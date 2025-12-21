@@ -1,47 +1,227 @@
-import { personalInfo } from '../../data/content';
+import { personalInfo, navLinks } from '../../data/content';
+
+const icons = {
+    github: (
+        <svg fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+        </svg>
+    ),
+    linkedin: (
+        <svg fill="currentColor" viewBox="0 0 24 24">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+        </svg>
+    ),
+    email: (
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+        </svg>
+    ),
+};
 
 const Footer = () => {
     const year = new Date().getFullYear();
 
     return (
-        <footer className="border-t border-dark-800 bg-void">
-            <div className="section-container py-8">
-                <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                    <p className="text-liner text-xs text-text-dim">
-                        © {year} {personalInfo.name}
-                    </p>
-                    <div className="flex items-center gap-6">
+        <footer className="relative overflow-hidden">
+            {/* ═══════════════════════════════════════════════════════════════
+                THE FINAL CHAPTER — Dense, gravitational, authoritative
+            ═══════════════════════════════════════════════════════════════ */}
+
+            {/* Transition divider — intentional, low-contrast */}
+            <div
+                className="absolute top-0 left-0 right-0 h-px"
+                style={{
+                    background: 'linear-gradient(90deg, transparent 5%, rgba(124, 58, 237, 0.15) 30%, rgba(139, 92, 246, 0.2) 50%, rgba(124, 58, 237, 0.15) 70%, transparent 95%)',
+                }}
+            />
+
+            {/* Dense background — darker than everything above */}
+            <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                    background: `
+                        radial-gradient(ellipse 120% 60% at 50% -10%, 
+                            rgba(109, 40, 217, 0.08) 0%, 
+                            transparent 45%
+                        ),
+                        radial-gradient(ellipse 80% 50% at 20% 100%, 
+                            rgba(6, 4, 14, 0.9) 0%, 
+                            transparent 50%
+                        ),
+                        radial-gradient(ellipse 80% 50% at 80% 100%, 
+                            rgba(6, 4, 14, 0.9) 0%, 
+                            transparent 50%
+                        ),
+                        linear-gradient(180deg,
+                            rgba(5, 5, 16, 0.4) 0%,
+                            rgba(3, 3, 10, 0.98) 40%,
+                            rgba(2, 2, 8, 1) 100%
+                        )
+                    `,
+                }}
+            />
+
+            {/* Vignette — pulls downward */}
+            <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                    background: `
+                        radial-gradient(ellipse 100% 100% at 50% 50%, 
+                            transparent 30%,
+                            rgba(0, 0, 0, 0.4) 100%
+                        )
+                    `,
+                }}
+            />
+
+            {/* Converging arcs — gravitational pull to center-bottom */}
+            <svg
+                className="absolute inset-0 w-full h-full pointer-events-none"
+                viewBox="0 0 1920 400"
+                preserveAspectRatio="xMidYMid slice"
+            >
+                {/* Outer convergence */}
+                <ellipse
+                    cx="960"
+                    cy="500"
+                    rx="1200"
+                    ry="280"
+                    fill="none"
+                    stroke="rgba(109, 40, 217, 0.04)"
+                    strokeWidth="1.5"
+                />
+                {/* Mid convergence */}
+                <ellipse
+                    cx="960"
+                    cy="520"
+                    rx="900"
+                    ry="220"
+                    fill="none"
+                    stroke="rgba(124, 58, 237, 0.035)"
+                    strokeWidth="1"
+                    strokeDasharray="3 5"
+                />
+                {/* Inner convergence */}
+                <ellipse
+                    cx="960"
+                    cy="540"
+                    rx="600"
+                    ry="160"
+                    fill="none"
+                    stroke="rgba(139, 92, 246, 0.03)"
+                    strokeWidth="0.8"
+                />
+                {/* Core pull */}
+                <ellipse
+                    cx="960"
+                    cy="560"
+                    rx="300"
+                    ry="80"
+                    fill="none"
+                    stroke="rgba(167, 139, 250, 0.025)"
+                    strokeWidth="0.6"
+                />
+            </svg>
+
+            {/* Increased grain density */}
+            <div
+                className="absolute inset-0 pointer-events-none opacity-[0.045]"
+                style={{
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='footergrain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23footergrain)'/%3E%3C/svg%3E")`,
+                    mixBlendMode: 'overlay',
+                }}
+            />
+
+            {/* Content */}
+            <div className="section-container relative z-10 pt-10 pb-8 md:pt-12 md:pb-10">
+
+                {/* Three-zone grid — asymmetric weighting */}
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-6 mb-8">
+
+                    {/* ═══ IDENTITY ZONE — dominant, anchoring ═══ */}
+                    <div className="md:col-span-5 space-y-3">
                         <a
-                            href={personalInfo.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="link-quiet"
-                            aria-label="GitHub"
+                            href="#"
+                            className="footer-identity"
                         >
-                            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                            </svg>
+                            {personalInfo.name.split(' ')[0]}
+                            <span className="footer-identity-dot">.</span>
                         </a>
-                        <a
-                            href={personalInfo.linkedin}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="link-quiet"
-                            aria-label="LinkedIn"
-                        >
-                            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                            </svg>
-                        </a>
+                        <p className="footer-tagline">
+                            Backend engineering. Systems that scale. Production-grade reliability.
+                        </p>
+                    </div>
+
+                    {/* ═══ NAVIGATION ZONE — secondary, structured ═══ */}
+                    <div className="md:col-span-4 md:pl-8">
+                        <h4 className="footer-label">Navigate</h4>
+                        <nav className="footer-nav">
+                            {navLinks.map((link, index) => (
+                                <span key={link.name} className="flex items-center">
+                                    <a
+                                        href={link.href}
+                                        className="footer-nav-link"
+                                    >
+                                        {link.name}
+                                    </a>
+                                    {index < navLinks.length - 1 && (
+                                        <span className="footer-nav-divider" />
+                                    )}
+                                </span>
+                            ))}
+                        </nav>
+                    </div>
+
+                    {/* ═══ CONNECTION ZONE — intentional, visible ═══ */}
+                    <div className="md:col-span-3 md:text-right">
+                        <h4 className="footer-label md:text-right">Connect</h4>
+                        <div className="flex items-center gap-3 md:justify-end mb-3">
+                            <a
+                                href={personalInfo.github}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="footer-social-link"
+                                aria-label="GitHub"
+                            >
+                                {icons.github}
+                            </a>
+                            <a
+                                href={personalInfo.linkedin}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="footer-social-link"
+                                aria-label="LinkedIn"
+                            >
+                                {icons.linkedin}
+                            </a>
+                            <a
+                                href={`mailto:${personalInfo.email}`}
+                                className="footer-social-link"
+                                aria-label="Email"
+                            >
+                                {icons.email}
+                            </a>
+                        </div>
                         <a
                             href={`mailto:${personalInfo.email}`}
-                            className="link-quiet"
-                            aria-label="Email"
+                            className="footer-email"
                         >
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
-                            </svg>
+                            {personalInfo.email}
                         </a>
+                    </div>
+                </div>
+
+                {/* Bottom separator — faint, intentional */}
+                <div className="footer-separator" />
+
+                {/* Bottom bar — compressed */}
+                <div className="flex flex-col md:flex-row items-center justify-between gap-3 pt-5">
+                    <p className="footer-copyright">
+                        © {year} {personalInfo.name}. Built with precision.
+                    </p>
+                    <div className="footer-status">
+                        <span className="footer-status-dot" />
+                        <span>Available for opportunities</span>
                     </div>
                 </div>
             </div>
