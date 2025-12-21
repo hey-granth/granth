@@ -1,82 +1,78 @@
 import { motion, useInView } from 'framer-motion';
-import { useRef, useState } from 'react';
-import { projects } from '../../data/content';
-import { Card, Badge } from '../ui';
-import { fadeInUp, staggerContainer } from '../../lib/animations';
+import { useRef } from 'react';
+import { projects, sectionTitles } from '../../data/content';
+
+const ease = [0.16, 1, 0.3, 1];
 
 const ProjectCard = ({ project, index }) => {
     const ref = useRef(null);
-    const isInView = useInView(ref, { once: true, margin: '-50px' });
-    const [isExpanded, setIsExpanded] = useState(false);
+    const isInView = useInView(ref, { once: true, margin: '-80px' });
 
     return (
-        <motion.div
+        <motion.article
             ref={ref}
-            variants={fadeInUp}
-            initial="hidden"
-            animate={isInView ? 'visible' : 'hidden'}
-            transition={{ delay: index * 0.15 }}
-            className="h-full"
+            className="card p-8 md:p-10"
+            initial={{ opacity: 0, y: 40 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, ease, delay: index * 0.1 }}
         >
-            <Card
-                className="p-6 h-full flex flex-col cursor-pointer"
-                glow
-                onClick={() => setIsExpanded(!isExpanded)}
-            >
-                {/* Header */}
-                <div className="flex items-start justify-between mb-4">
-                    <div>
-                        <Badge variant="accent" className="mb-3">{project.category}</Badge>
-                        <h3 className="text-xl font-semibold text-text-primary">
-                            {project.name}
-                        </h3>
-                    </div>
-                    <motion.div
-                        animate={{ rotate: isExpanded ? 180 : 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="text-text-muted"
-                    >
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                        </svg>
-                    </motion.div>
+            {/* Header */}
+            <div className="flex flex-wrap items-start justify-between gap-6 mb-8">
+                <div>
+                    <h3 className="text-display-lg text-text-primary">
+                        {project.name}
+                    </h3>
+                    <p className="text-liner mt-2">
+                        {project.tagline}
+                    </p>
                 </div>
-
-                {/* Description */}
-                <p className="text-text-secondary text-sm mb-4 flex-grow">
-                    {isExpanded ? project.longDescription : project.description}
-                </p>
-
-                {/* Expanded content */}
-                <motion.div
-                    initial={false}
-                    animate={{ height: isExpanded ? 'auto' : 0, opacity: isExpanded ? 1 : 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="overflow-hidden"
-                >
-                    <div className="pt-4 border-t border-dark-600/50">
-                        <h4 className="text-sm font-medium text-text-primary mb-3">Key Features</h4>
-                        <ul className="space-y-2 mb-4">
-                            {project.features.map((feature, i) => (
-                                <li key={i} className="flex items-center gap-2 text-text-secondary text-sm">
-                                    <span className="text-accent">•</span>
-                                    {feature}
-                                </li>
-                            ))}
-                        </ul>
+                <div className="text-right">
+                    <div className="metric-value">
+                        {project.metrics.value}
                     </div>
-                </motion.div>
+                    <div className="metric-label mt-1">
+                        {project.metrics.label}
+                    </div>
+                </div>
+            </div>
 
-                {/* Tech Stack */}
-                <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-dark-600/50">
+            {/* Problem / Solution */}
+            <div className="grid md:grid-cols-2 gap-8 mb-8">
+                <div>
+                    <h4 className="track-title mb-3">Problem</h4>
+                    <p className="text-liner">{project.problem}</p>
+                </div>
+                <div>
+                    <h4 className="track-title mb-3">Solution</h4>
+                    <p className="text-liner">{project.solution}</p>
+                </div>
+            </div>
+
+            {/* Depth */}
+            <div className="mb-8">
+                <h4 className="track-title mb-4">Technical Depth</h4>
+                <ul className="space-y-2">
+                    {project.depth.map((item, i) => (
+                        <li key={i} className="flex items-start gap-3 text-liner">
+                            <span className="accent mt-0.5">→</span>
+                            {item}
+                        </li>
+                    ))}
+                </ul>
+            </div>
+
+            {/* Footer */}
+            <div className="flex flex-wrap items-end justify-between gap-4 pt-6 border-t border-dark-700">
+                <div className="flex flex-wrap gap-2">
                     {project.stack.map((tech) => (
-                        <Badge key={tech} variant="default">
-                            {tech}
-                        </Badge>
+                        <span key={tech} className="tech-badge">{tech}</span>
                     ))}
                 </div>
-            </Card>
-        </motion.div>
+                <p className="text-liner text-text-dim text-xs">
+                    {project.ownership}
+                </p>
+            </div>
+        </motion.article>
     );
 };
 
@@ -85,33 +81,28 @@ const Projects = () => {
     const isInView = useInView(ref, { once: true, margin: '-100px' });
 
     return (
-        <section id="projects" ref={ref} className="section-padding bg-dark-900/50">
-            <motion.div
-                className="section-container"
-                variants={staggerContainer}
-                initial="hidden"
-                animate={isInView ? 'visible' : 'hidden'}
-            >
-                {/* Section Header */}
-                <motion.div className="mb-16 text-center" variants={fadeInUp}>
-                    <span className="inline-block text-accent text-sm font-medium tracking-wider uppercase mb-3">
-                        Projects
-                    </span>
-                    <h2 className="text-display-sm md:text-display-md font-bold text-text-primary mb-4">
-                        Featured Work
+        <section id="work" ref={ref} className="section-padding">
+            <div className="section-container">
+                {/* Header */}
+                <motion.header
+                    className="mb-16"
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.8, ease }}
+                >
+                    <span className="track-title">{sectionTitles.work}</span>
+                    <h2 className="text-display-xl text-text-primary mt-4">
+                        Shipped. Running. In production.
                     </h2>
-                    <p className="text-text-secondary max-w-2xl mx-auto text-lg">
-                        Case studies showcasing backend architecture, API design, and system optimizations.
-                    </p>
-                </motion.div>
+                </motion.header>
 
-                {/* Projects Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {/* Projects */}
+                <div className="space-y-8">
                     {projects.map((project, index) => (
                         <ProjectCard key={project.name} project={project} index={index} />
                     ))}
                 </div>
-            </motion.div>
+            </div>
         </section>
     );
 };

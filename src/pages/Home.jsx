@@ -1,25 +1,25 @@
 import { Navbar, Footer } from '../components/layout';
 import {
     Hero,
-    About,
-    Experience,
     Projects,
-    Patent,
-    Community,
+    Philosophy,
+    Experience,
+    Proof,
     Contact
 } from '../components/sections';
+import BackgroundDepth from '../components/BackgroundDepth';
 
 const Home = () => {
     return (
         <>
+            <BackgroundDepth />
             <Navbar />
-            <main>
+            <main className="relative z-10">
                 <Hero />
-                <About />
-                <Experience />
                 <Projects />
-                <Patent />
-                <Community />
+                <Philosophy />
+                <Experience />
+                <Proof />
                 <Contact />
             </main>
             <Footer />

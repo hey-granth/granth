@@ -1,71 +1,55 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { experiences } from '../../data/content';
-import { Card, Badge } from '../ui';
-import { fadeInUp, fadeInLeft, staggerContainer } from '../../lib/animations';
+import { eras, sectionTitles } from '../../data/content';
 
-const ExperienceCard = ({ experience, index }) => {
+const ease = [0.16, 1, 0.3, 1];
+
+const EraCard = ({ era, index }) => {
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true, margin: '-50px' });
-    const isLeft = index % 2 === 0;
 
     return (
-        <motion.div
+        <motion.article
             ref={ref}
-            className="relative"
-            initial="hidden"
-            animate={isInView ? 'visible' : 'hidden'}
-            variants={fadeInUp}
-            transition={{ delay: index * 0.2 }}
+            className="relative pl-8 md:pl-12 pb-12"
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, ease, delay: index * 0.1 }}
         >
-            {/* Timeline connector */}
-            <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-dark-600 -translate-x-1/2 hidden md:block" />
+            {/* Timeline line */}
+            <div className="absolute left-0 top-2 bottom-0 w-px bg-dark-600" />
 
             {/* Timeline dot */}
-            <motion.div
-                className="absolute left-0 md:left-1/2 top-8 w-3 h-3 bg-accent rounded-full -translate-x-1/2 hidden md:block z-10"
-                initial={{ scale: 0 }}
-                animate={isInView ? { scale: 1 } : { scale: 0 }}
-                transition={{ delay: index * 0.2 + 0.3, type: 'spring' }}
-            >
-                <div className="absolute inset-0 bg-accent rounded-full animate-ping opacity-50" />
-            </motion.div>
+            <div className="absolute left-0 top-2 w-2 h-2 -translate-x-[3px] rounded-full bg-jamun" />
 
-            <div className={`md:w-1/2 ${isLeft ? 'md:pr-12' : 'md:pl-12 md:ml-auto'}`}>
-                <Card className="p-6" glow>
-                    <div className="flex flex-wrap items-center gap-3 mb-4">
-                        <Badge variant="accent">{experience.type}</Badge>
-                        <span className="text-text-muted text-sm">{experience.period}</span>
-                    </div>
-
-                    <h3 className="text-xl font-semibold text-text-primary mb-1">
-                        {experience.title}
-                    </h3>
-                    <p className="text-accent text-sm font-medium mb-4">
-                        {experience.company}
-                    </p>
-
-                    <ul className="space-y-2">
-                        {experience.highlights.map((highlight, i) => (
-                            <motion.li
-                                key={i}
-                                className="flex items-start gap-2 text-text-secondary text-sm"
-                                initial={{ opacity: 0, x: -10 }}
-                                animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
-                                transition={{ delay: index * 0.2 + 0.4 + i * 0.1 }}
-                            >
-                                <span className="text-accent mt-1.5">
-                                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                    </svg>
-                                </span>
-                                {highlight}
-                            </motion.li>
-                        ))}
-                    </ul>
-                </Card>
+            {/* Content */}
+            <div className="mb-3">
+                <span className="era-badge">{era.name}</span>
             </div>
-        </motion.div>
+
+            <h3 className="text-display-sm text-text-primary">
+                {era.title}
+            </h3>
+
+            <div className="flex items-center gap-2 mt-1 text-liner text-xs">
+                <span className="accent">{era.company}</span>
+                <span className="text-text-dim">·</span>
+                <span className="text-text-dim">{era.period}</span>
+            </div>
+
+            <p className="text-liner mt-4 mb-4">
+                {era.narrative}
+            </p>
+
+            <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-1">
+                {era.highlights.map((item, i) => (
+                    <li key={i} className="flex items-start gap-2 text-liner text-xs text-text-muted">
+                        <span className="accent">→</span>
+                        {item}
+                    </li>
+                ))}
+            </ul>
+        </motion.article>
     );
 };
 
@@ -74,30 +58,28 @@ const Experience = () => {
     const isInView = useInView(ref, { once: true, margin: '-100px' });
 
     return (
-        <section id="experience" ref={ref} className="section-padding">
-            <motion.div
-                className="section-container"
-                variants={staggerContainer}
-                initial="hidden"
-                animate={isInView ? 'visible' : 'hidden'}
-            >
-                {/* Section Header */}
-                <motion.div className="mb-16 text-center" variants={fadeInUp}>
-                    <span className="inline-block text-accent text-sm font-medium tracking-wider uppercase mb-3">
-                        Experience
-                    </span>
-                    <h2 className="text-display-sm md:text-display-md font-bold text-text-primary">
-                        Professional Journey
+        <section id="eras" ref={ref} className="section-padding">
+            <div className="section-container">
+                {/* Header */}
+                <motion.header
+                    className="mb-16"
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.8, ease }}
+                >
+                    <span className="track-title">{sectionTitles.timeline}</span>
+                    <h2 className="text-display-xl text-text-primary mt-4">
+                        Not jobs. Eras.
                     </h2>
-                </motion.div>
+                </motion.header>
 
                 {/* Timeline */}
-                <div className="space-y-12 relative">
-                    {experiences.map((experience, index) => (
-                        <ExperienceCard key={index} experience={experience} index={index} />
+                <div>
+                    {eras.map((era, index) => (
+                        <EraCard key={era.name} era={era} index={index} />
                     ))}
                 </div>
-            </motion.div>
+            </div>
         </section>
     );
 };
