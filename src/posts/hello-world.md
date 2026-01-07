@@ -2,88 +2,94 @@
 title: "hi, i am Granth, nice to meet you :)"
 date: "2026-01-07"
 summary: "this is me, in case the future-me forgets. here to have fun"
-tags: ["architecture", "reliability", "process"]
+tags: ["career", "life", "personal", "engineering"]
 ---
 
-# Hi, I’m Granth. This Is the Part Where I Pretend to Be Normal.
+## Who the hell am I?
 
-Welcome to my corner of the internet. This blog exists for two reasons:
-1. Recruiters.
-2. Me trying to leave a breadcrumb trail explaining who I was at this point in time, in case future-me forgets.
+I’m Granth.  
+I build software, break it, rebuild it cleaner, then wonder why I didn’t do it that way the first time.
 
-If you’re here for a clean, corporate “About Me” page, wrong tab. If you’re here for something honest, mildly unhinged, and still professional enough to not get me blacklisted, keep reading.
+Professionally, I’m someone who likes systems that **work**, scale, and don’t collapse the moment real users show up. Personally, I’m someone who overthinks life at 2 AM, survives on caffeine and curiosity, and has an unhealthy relationship with the internet.
 
----
-
-## The Professional Me (Yes, I Do Things)
-
-Professionally, I build software. Mostly backend. Mostly things that break first and work later.
-
-I like systems that:
-- Scale without crying
-- Fail loudly instead of silently
-- Don’t require a 40-page README to run locally
-
-I care about architecture, async workflows, background jobs, APIs that don’t feel like a personal attack, and codebases that don’t rot the moment the original author disappears. I enjoy Django, FastAPI, databases, queues, infra-adjacent problems, and generally asking “what happens when this gets used by real humans at 2 AM?”
-
-I’m not obsessed with frameworks. I’m obsessed with **leverage**. Tools are replaceable. Thinking isn’t.
-
-Career-wise, I’m still early, which means I’m allowed to break things, ask dumb questions, and occasionally ship something surprisingly solid. I take that license seriously.
+This blog is my corner of the internet where I stop pretending LinkedIn is a personality.
 
 ---
 
-## The Personal Me (Outside the Commit History)
+## The professional version (resume-safe)
 
-Outside of work, I’m not “passionate about coding” 24/7. That would be concerning.
+I work in backend-heavy engineering land. APIs, databases, async systems, architecture decisions that feel small today but come back to haunt you six months later.
+
+I care about:
+- Clean abstractions
+- Code that doesn’t age like milk
+- Systems that can survive real traffic, not just tutorial-level users
+- Understanding *why* something works, not just *that* it works
+
+I don’t romanticize “grind culture.” Shipping matters. Learning matters more. Burning out helps nobody.
+
+If this sounds serious, don’t worry. It gets worse.
+
+---
+
+## The personal version (human-safe)
+
+Outside work, I’m not “passionate about leveraging synergies.”  
+I’m just a guy trying to make sense of things.
 
 I like:
-- Internet culture and memes that age like milk
-- Overanalyzing life decisions at night like it’s a competitive sport
-- Music on loop until it loses all meaning
-- Long walks where I pretend I’m the main character in an A24 film
+- Late-night walks where my brain refuses to shut up
+- Music that hits harder when life feels slightly off
+- Memes that are funny because they’re uncomfortably accurate
+- Overanalyzing random decisions like they’re system design interviews
 
-I oscillate between ambition and “what the fuck am I doing with my life” at a frequency that should probably be studied. I’m introspective, occasionally cynical, and deeply allergic to fake motivation content.
+I oscillate between:
+- “I’ve got my shit together”
+- “What the fuck am I doing with my life”
 
-I value honesty, competence, curiosity, and people who actually build shit instead of just tweeting about it.
-
----
-
-## Meme Philosophy (Very Serious Section)
-
-If memes are modern philosophy, then my belief system looks something like this:
-
-- “This is fine” dog: accurate internal state during deadlines  
-- “NPC energy”: what happens when you stop questioning defaults  
-- “Bro really thought that would work”: my reaction to most early designs  
-- “It compiles, ship it”: forbidden knowledge  
-- “We’ll refactor later”: historical lie, documented across civilizations  
-
-Humor is a coping mechanism. So is writing code. Sometimes they overlap.
+This is normal. If you say it isn’t, you’re lying or selling a course.
 
 ---
 
-## What This Blog Will Be About
+## Internet brain rot, but make it self-aware
 
-This blog will not be niche-polished content written to appease algorithms.
+My personality is basically:
+- “This is fine” dog during deadlines  
+- “NPC energy” when social batteries die  
+- “Main character arc” when a project finally clicks  
+- Doomscrolling, but with bookmarks
 
-It will include:
-- Things I’m building and why
+I believe memes are modern philosophy.  
+If you’ve ever learned more from a shitpost than a motivational quote, we’re on the same wavelength.
+
+---
+
+## Why this blog exists
+
+This blog is not:
+- A tutorial dump
+- A flex board
+- A productivity cult shrine
+
+This blog *is*:
+- A record of how I think
 - Lessons learned the hard way
-- Career thoughts without LinkedIn cringe
-- Personal reflections that don’t fit neatly into bullet points
-- Occasional rants when something deserves it
+- Thoughts on work, life, systems, failure, ambition, and occasionally dumb stuff that still matters
 
-Some posts will be technical. Some will be personal. Some will be me yelling into the void in structured Markdown.
+Some posts will be technical.  
+Some will be personal.  
+Some will be me trying to explain something to myself and accidentally publishing it.
 
 ---
 
-## Why This Exists At All
+## What you should expect
 
-Because clarity compounds.
+- Opinions, not absolutes
+- Practical thinking over motivational bullshit
+- Progress over perfection
+- Occasional swearing when it fits the mood
 
-Writing forces me to slow down, think clearly, and stop bullshitting myself. If it helps someone else along the way, cool. If not, at least it documents the process.
+If you’re here to see a perfectly polished professional persona, wrong place.  
+If you’re here to read honest thoughts from someone building things, figuring life out, and not pretending it’s all smooth sailing, welcome.
 
-This is not a brand. This is a log.
-
-If you’re reading this years later: hope it worked out.
-If you’re reading this now: welcome to the mess.
+That’s it. No CTA. No hustle pitch. Just me, writing things down before I forget why they mattered.

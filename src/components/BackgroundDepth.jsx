@@ -13,7 +13,7 @@ import { useEffect, useRef, memo } from 'react';
  * ╚═══════════════════════════════════════════════════════════════════════════╝
  */
 
-const BackgroundDepth = memo(() => {
+const BackgroundDepth = memo(({ muted = false }) => {
     const grainCanvasRef = useRef(null);
     const orbitalRefs = useRef([]);
     const depthMarkersRef = useRef(null);
@@ -135,7 +135,14 @@ const BackgroundDepth = memo(() => {
     }, []);
 
     return (
-        <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none select-none">
+        <div className="fixed inset-0 -z-10 overflow-hidden">
+
+            {/* Background gradient — softened in muted mode */}
+            <div className={`absolute inset-0 bg-gradient-to-b from-void via-dark-900 to-void ${muted ? 'opacity-60' : 'opacity-100'}`} />
+
+            {/* Decorative gradients — adjusted for muted mode */}
+            <div className={`absolute -left-32 top-10 w-96 h-96 rounded-full blur-[120px] bg-gradient-to-br from-jamun/35 via-jamun/20 to-transparent ${muted ? 'opacity-50' : 'opacity-80'}`} />
+            <div className={`absolute right-[-20%] top-1/4 w-[520px] h-[520px] rounded-full blur-[140px] bg-gradient-to-br from-jamun/25 via-jamun/15 to-transparent ${muted ? 'opacity-40' : 'opacity-70'}`} />
 
             {/* ═══════════════════════════════════════════════════════════════
                 LAYER 1 — ENHANCED BASE GRADIENT FIELD

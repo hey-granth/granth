@@ -7,7 +7,7 @@ const formatDate = (input) => new Date(input).toLocaleDateString('en-US', {
 });
 
 export const loadPosts = () => {
-    const files = import.meta.glob('../posts/*.md', { eager: true, as: 'raw' });
+    const files = import.meta.glob('../posts/*.md', { eager: true, query: '?raw', import: 'default' });
 
     return Object.entries(files)
         .map(([path, raw]) => {
@@ -30,4 +30,3 @@ export const loadPostBySlug = (slug) => {
     const posts = loadPosts();
     return posts.find((p) => p.slug === slug);
 };
-
