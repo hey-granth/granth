@@ -182,4 +182,5 @@ export const navLinks = [
     { name: "Eras", href: "#eras" },
     { name: "Credentials", href: "#credentials" },
     { name: "Contact", href: "#contact" },
+    { name: "Blog", href: "/blog", external: true },
 ];

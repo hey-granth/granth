@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
+import { Link, useLocation } from 'react-router-dom';
 import { navLinks, personalInfo } from '../../data/content';
 
 const ease = [0.16, 1, 0.3, 1];
@@ -12,6 +13,7 @@ const Navbar = () => {
     const lastScrollY = useRef(0);
 
     const { scrollY } = useScroll();
+    const location = useLocation();
 
     useMotionValueEvent(scrollY, 'change', (latest) => {
         const previous = lastScrollY.current;
@@ -78,14 +80,25 @@ const Navbar = () => {
                     <div className="hidden md:flex items-center gap-1">
                         {navLinks.map((link) => {
                             const sectionId = link.href.replace('#', '');
-                            const isActive = activeSection === sectionId;
+                            const isActive = link.external ? location.pathname.startsWith('/blog') : activeSection === sectionId;
+
+                            const commonClasses = `px-3 py-2 text-liner text-xs uppercase tracking-wider transition-colors ${
+                                isActive ? 'accent' : 'text-text-muted hover:text-text-primary'
+                            }`;
+
+                            if (link.external) {
+                                return (
+                                    <Link key={link.name} to={link.href} className={commonClasses}>
+                                        {link.name}
+                                    </Link>
+                                );
+                            }
 
                             return (
                                 <a
                                     key={link.name}
                                     href={link.href}
-                                    className={`px-3 py-2 text-liner text-xs uppercase tracking-wider transition-colors ${isActive ? 'accent' : 'text-text-muted hover:text-text-primary'
-                                        }`}
+                                    className={commonClasses}
                                     onClick={(e) => { e.preventDefault(); scrollToSection(link.href); }}
                                 >
                                     {link.name}
@@ -123,14 +136,26 @@ const Navbar = () => {
                             <div className="py-4 space-y-1">
                                 {navLinks.map((link) => {
                                     const sectionId = link.href.replace('#', '');
-                                    const isActive = activeSection === sectionId;
+                                    const isActive = link.external ? location.pathname.startsWith('/blog') : activeSection === sectionId;
+
+                                    if (link.external) {
+                                        return (
+                                            <Link
+                                                key={link.name}
+                                                to={link.href}
+                                                className={`block px-4 py-3 text-liner text-sm uppercase tracking-wider ${isActive ? 'accent' : 'text-text-muted'}`}
+                                                onClick={() => setIsMobileMenuOpen(false)}
+                                            >
+                                                {link.name}
+                                            </Link>
+                                        );
+                                    }
 
                                     return (
                                         <a
                                             key={link.name}
                                             href={link.href}
-                                            className={`block px-4 py-3 text-liner text-sm uppercase tracking-wider ${isActive ? 'accent' : 'text-text-muted'
-                                                }`}
+                                            className={`block px-4 py-3 text-liner text-sm uppercase tracking-wider ${isActive ? 'accent' : 'text-text-muted'}`}
                                             onClick={(e) => { e.preventDefault(); scrollToSection(link.href); }}
                                         >
                                             {link.name}
