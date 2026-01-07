@@ -8,6 +8,7 @@ export default defineConfig({
   optimizeDeps: {
     esbuildOptions: {
       define: {
+
         global: 'globalThis',
       },
       plugins: [
@@ -15,6 +16,11 @@ export default defineConfig({
           buffer: true,
         }),
       ],
+    },
+  },
+  resolve: {
+    alias: {
+      buffer: 'buffer',
     },
   },
   define: {
