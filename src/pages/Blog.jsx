@@ -35,7 +35,7 @@ const Blog = () => {
                                 className="card reading-card"
                                 variants={fadeInUp}
                             >
-                                <div className="flex flex-wrap items-center justify-between gap-3 text-sm text-text-muted">
+                                <div className="flex flex-wrap items-center justify-between gap-3 text-base text-text-muted">
                                     <span className="text-text-secondary">{post.formattedDate}</span>
                                     <div className="flex gap-2 flex-wrap">
                                         {post.tags.map((tag) => (
@@ -49,11 +49,11 @@ const Blog = () => {
                                     <h3 className="text-display-sm md:text-display-md font-bold leading-tight">{post.title}</h3>
                                 </Link>
                                 {post.summary && (
-                                    <p className="mt-3 text-text-secondary text-base leading-relaxed">
+                                    <p className="mt-3 text-text-secondary text-lg leading-relaxed">
                                         {post.summary}
                                     </p>
                                 )}
-                                <div className="mt-4 inline-flex items-center gap-2 text-accent font-medium">
+                                <div className="mt-4 inline-flex items-center gap-2 text-accent font-medium text-base">
                                     Read
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"

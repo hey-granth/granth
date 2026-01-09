@@ -5,6 +5,7 @@ export const personalInfo = {
     email: "granthcodes@gmail.com",
     github: "https://github.com/hey-granth",
     linkedin: "https://linkedin.com/in/granth-agarwal",
+    twitter: "https://x.com/heygranth",
     resume: "/resume.pdf",
 };
 

@@ -34,7 +34,7 @@ const Section = ({
                 {(title || subtitle) && (
                     <motion.div className="mb-16" variants={fadeInUp}>
                         {subtitle && (
-                            <span className="inline-block text-accent text-sm font-medium tracking-wider uppercase mb-3">
+                            <span className="inline-block text-accent text-base font-medium tracking-wider uppercase mb-3">
                                 {subtitle}
                             </span>
                         )}

@@ -83,14 +83,14 @@ const Proof = () => {
                 >
                     <div className="flex flex-wrap items-center gap-4 mb-4">
                         <span className="era-badge">Patent {proof.patent.status}</span>
-                        <span className="text-liner text-xs text-text-dim">
+                        <span className="text-liner text-sm text-text-secondary">
                             #{proof.patent.number}
                         </span>
                     </div>
                     <h3 className="text-display-sm text-text-primary mb-2">
                         {proof.patent.title}
                     </h3>
-                    <p className="text-liner text-xs text-text-dim">
+                    <p className="text-liner text-sm text-text-secondary">
                         Published {proof.patent.date}
                     </p>
                 </motion.div>

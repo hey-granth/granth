@@ -68,7 +68,7 @@ const ProjectCard = ({ project, index }) => {
                         <span key={tech} className="tech-badge">{tech}</span>
                     ))}
                 </div>
-                <p className="text-liner text-text-dim text-xs">
+                <p className="text-liner text-text-secondary text-s">
                     {project.ownership}
                 </p>
             </div>
