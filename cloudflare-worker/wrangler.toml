@@ -1,0 +1,11 @@
+name = "granth-portfolio-proxy"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+# Production route: granth.tech
+routes = [
+  { pattern = "granth.tech/*", zone_name = "granth.tech" }
+]
+
+[vars]
+VERCEL_ORIGIN = "https://granth.vercel.app"
