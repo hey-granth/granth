@@ -2,152 +2,188 @@ package main
 
 import (
 	"fmt"
-	"os"
 	"strings"
 
 	"github.com/charmbracelet/lipgloss"
-	"github.com/muesli/termenv"
 )
 
-func init() {
-	// Force ANSI color output regardless of TTY detection
-	lipgloss.SetColorProfile(termenv.ANSI)
-	os.Setenv("CLICOLOR_FORCE", "1")
-}
-
-// Colors — restrained palette
-var (
-	cyan   = lipgloss.Color("6")
-	yellow = lipgloss.Color("3")
-	white  = lipgloss.Color("15")
-	gray   = lipgloss.Color("8")
+// Constants
+const (
+	maxWidth = 90
+	// Colors
+	primaryColor   = lipgloss.Color("6")  // Muted Cyan/Teal
+	secondaryColor = lipgloss.Color("3")  // Soft Yellow/Gold
+	textColor      = lipgloss.Color("15") // Near White
+	subtleColor    = lipgloss.Color("8")  // Soft Gray
+	accentColor    = lipgloss.Color("5")  // Muted Magenta/Purple
 )
 
-// Styles
+// --- STYLES ---
+
 var (
+	// Base container style
+	containerStyle = lipgloss.NewStyle().
+		MaxWidth(maxWidth).
+		Padding(0, 2)
+
+	// Header styles
+	headerStyle = lipgloss.NewStyle().
+		MarginBottom(1)
 	nameStyle = lipgloss.NewStyle().
-			Foreground(cyan).
-			Bold(true)
+		Foreground(primaryColor).
+		Bold(true).
+		Render
+	subtitleStyle = lipgloss.NewStyle().
+		Foreground(subtleColor).
+		Render
 
-	roleStyle = lipgloss.NewStyle().
-			Foreground(white).
-			Bold(true)
+	// Footer styles
+	footerStyle = lipgloss.NewStyle().
+		Foreground(subtleColor).
+		MarginTop(1).
+		PaddingTop(1).
+		BorderTop(true).
+		BorderForeground(subtleColor)
+	linkStyle = lipgloss.NewStyle().
+		Foreground(primaryColor).
+		Underline(true).
+		Render
 
-	dimStyle = lipgloss.NewStyle().
-			Foreground(gray)
+	// Content panel styles
+	panelStyle = lipgloss.NewStyle().
+		Border(lipgloss.RoundedBorder()).
+		BorderForeground(subtleColor).
+		Padding(1, 2).
+		BorderBottom(true).
+		BorderRight(true)
 
-	sectionStyle = lipgloss.NewStyle().
-			Foreground(cyan).
-			Bold(true)
+	panelTitleStyle = lipgloss.NewStyle().
+		Foreground(secondaryColor).
+		Bold(true).
+		MarginBottom(1).
+		Render
 
-	labelStyle = lipgloss.NewStyle().
-			Foreground(yellow).
-			Width(12)
-
-	boldStyle = lipgloss.NewStyle().
-			Foreground(white).
-			Bold(true)
-
-	dividerStyle = lipgloss.NewStyle().
-			Foreground(gray)
+	// Text styles
+	textStyle = lipgloss.NewStyle().
+		Foreground(textColor)
+	listItemStyle = lipgloss.NewStyle().
+		MarginBottom(1)
+	itemHeaderStyle = lipgloss.NewStyle().
+		Foreground(textColor).
+		Bold(true).
+		Render
+	itemMetaStyle = lipgloss.NewStyle().
+		Foreground(subtleColor).
+		Render
+	tagStyle = lipgloss.NewStyle().
+		Foreground(accentColor).
+		Render
 )
 
-const width = 80
+// --- CONTENT ---
 
-func divider() string {
-	return dividerStyle.Render(strings.Repeat("─", width))
+// Section represents a panel in the UI
+type Section struct {
+	Title   string
+	Content string
 }
 
-func section(title string) string {
-	return fmt.Sprintf("\n%s\n%s", sectionStyle.Render(title), divider())
+// --- UI BUILDERS ---
+
+func buildHeader() string {
+	name := nameStyle("Granth Agarwal")
+	subtitle := subtitleStyle("Backend & Systems Engineer · Building for Scale")
+	return headerStyle.Render(fmt.Sprintf("%s\n%s", name, subtitle))
 }
 
-func label(text string) string {
-	return labelStyle.Render(text)
+func buildFooter() string {
+	gh := linkStyle("GitHub")
+	web := linkStyle("Website")
+	return footerStyle.Render(fmt.Sprintf("Find me on %s or visit my %s.", gh, web))
 }
 
-func dim(text string) string {
-	return dimStyle.Render(text)
+func buildPanel(title, content string, width int) string {
+	return panelStyle.Copy().Width(width).Render(fmt.Sprintf("%s\n%s", panelTitleStyle(title), content))
 }
 
-func bold(text string) string {
-	return boldStyle.Render(text)
+func buildListItem(header, meta, body string, tags []string) string {
+	headerPart := itemHeaderStyle(header)
+	metaPart := itemMetaStyle(meta)
+	bodyPart := textStyle.Copy().Margin(0, 0, 1, 2).Render(body)
+	tagsPart := ""
+	if len(tags) > 0 {
+		tagsPart = textStyle.Copy().Margin(0, 0, 0, 2).Render(tagStyle(strings.Join(tags, " · ")))
+	}
+
+	return listItemStyle.Render(
+		fmt.Sprintf("%s %s\n%s%s", headerPart, metaPart, bodyPart, tagsPart),
+	)
 }
 
 func main() {
-	var b strings.Builder
+	// --- DEFINE CONTENT SECTIONS ---
+	leftPanelWidth := 38
+	rightPanelWidth := 48
 
-	// Header
-	b.WriteString("\n")
-	b.WriteString(nameStyle.Render("Granth Agarwal"))
-	b.WriteString("\n")
-	b.WriteString(roleStyle.Render("Backend Engineer"))
-	b.WriteString(" ")
-	b.WriteString(dim("·"))
-	b.WriteString(" ")
-	b.WriteString(dim("Systems · APIs · Scale"))
-	b.WriteString("\n")
+	// Left Column
+	stackContent := strings.Join([]string{
+		buildListItem("Languages", "", "Go, Python, SQL, TypeScript", []string{}),
+		buildListItem("Core Stack", "", "FastAPI, Django, PostgreSQL, Redis, Celery, Docker", []string{}),
+		buildListItem("Databases", "", "PostgreSQL (PostGIS, pgvector), Redis, ClickHouse", []string{}),
+	}, "\n")
 
-	// Contact
-	b.WriteString(section("CONTACT"))
-	b.WriteString("\n")
-	b.WriteString(fmt.Sprintf("  %s granthcodes@gmail.com\n", label("Email")))
-	b.WriteString(fmt.Sprintf("  %s github.com/hey-granth\n", label("GitHub")))
-	b.WriteString(fmt.Sprintf("  %s linkedin.com/in/granth-agarwal\n", label("LinkedIn")))
-	b.WriteString(fmt.Sprintf("  %s granth.tech\n", label("Web")))
+	philosophyContent := strings.Join([]string{
+		buildListItem("Pragmatism", "", "Choosing the right tool for the job, not just the newest.", []string{}),
+		buildListItem("Durability", "", "Building systems that are easy to understand, test, and maintain.", []string{}),
+		buildListItem("Automation", "", "If it can be automated, it should be. From tests to infra.", []string{}),
+	}, "\n")
 
-	// Stack
-	b.WriteString(section("STACK"))
-	b.WriteString("\n")
-	b.WriteString(fmt.Sprintf("  %s Python, SQL, JavaScript\n", label("Languages")))
-	b.WriteString(fmt.Sprintf("  %s Django, FastAPI, Celery\n", label("Frameworks")))
-	b.WriteString(fmt.Sprintf("  %s PostgreSQL, Redis, pgvector, PostGIS\n", label("Databases")))
-	b.WriteString(fmt.Sprintf("  %s Docker, Linux, GCP, Git\n", label("Infra")))
+	leftColumn := []Section{
+		{Title: "Stack & Tools", Content: stackContent},
+		{Title: "Philosophy", Content: philosophyContent},
+	}
 
-	// Experience
-	b.WriteString(section("EXPERIENCE"))
-	b.WriteString("\n\n")
-	b.WriteString(fmt.Sprintf("  %s %s Freelance %s\n", bold("Backend Developer"), dim("·"), dim("(Oct 2025 – Present)")))
-	b.WriteString(fmt.Sprintf("  %s\n", dim("Full ownership from architecture to deployment")))
-	b.WriteString("    • 40+ REST APIs with comprehensive documentation\n")
-	b.WriteString("    • 230+ automated tests across multiple services\n")
-	b.WriteString("    • PostGIS spatial queries for warehouse routing\n")
-	b.WriteString("    • Redis + Celery async task workflows\n")
-	b.WriteString("\n")
-	b.WriteString(fmt.Sprintf("  %s %s EverythingAboutAI %s\n", bold("Python Developer"), dim("·"), dim("(Jul – Aug 2025)")))
-	b.WriteString(fmt.Sprintf("  %s\n", dim("FastAPI automation services and pipeline integrations")))
-	b.WriteString("    • FastAPI microservices for automation\n")
-	b.WriteString("    • Make.com integration pipelines\n")
+	// Right Column
+	projectsContent := strings.Join([]string{
+		buildListItem("TrustSystem", "Patent-backed Identity Verification", "Fraud detection using pgvector and Sentence Transformers.", []string{"Django", "PostgreSQL", "Redis"}),
+		buildListItem("StandardStitch", "Multi-tenant Commerce Platform", "Enterprise backend with PostGIS for spatial queries.", []string{"40+ APIs", "Django", "PostGIS"}),
+		buildListItem("MemeTrends", "Real-time Analytics Engine", "Redis-based leaderboards with time-decay algorithms.", []string{"O(log N)", "Django", "Redis"}),
+	}, "\n\n")
 
-	// Projects
-	b.WriteString(section("PROJECTS"))
-	b.WriteString("\n\n")
-	b.WriteString(fmt.Sprintf("  %s %s\n", bold("TrustSystem"), dim("— Patent-backed identity verification")))
-	b.WriteString("    pgvector + Sentence Transformers for fraud detection\n")
-	b.WriteString(fmt.Sprintf("    %s\n", dim("Patent #202511094809 · Django, PostgreSQL, Redis")))
-	b.WriteString("\n")
-	b.WriteString(fmt.Sprintf("  %s %s\n", bold("StandardStitch"), dim("— Multi-tenant commerce platform")))
-	b.WriteString("    Enterprise backend with PostGIS spatial queries\n")
-	b.WriteString(fmt.Sprintf("    %s\n", dim("40+ APIs · Django, PostgreSQL, PostGIS, Celery")))
-	b.WriteString("\n")
-	b.WriteString(fmt.Sprintf("  %s %s\n", bold("MemeTrends"), dim("— Real-time analytics engine")))
-	b.WriteString("    Redis leaderboards with time-decay algorithms\n")
-	b.WriteString(fmt.Sprintf("    %s\n", dim("O(log N) operations · Django, Redis, Celery")))
+	experienceContent := strings.Join([]string{
+		buildListItem("Backend Developer", "Freelance (Oct 2025 – Present)", "Full ownership from architecture to deployment.", []string{"REST APIs", "Automated Testing", "PostGIS", "Celery"}),
+		buildListItem("Python Developer", "EverythingAboutAI (Jul – Aug 2025)", "Developed FastAPI microservices and automation pipelines.", []string{"FastAPI", "Make.com"}),
+	}, "\n\n")
 
-	// Credentials
-	b.WriteString(section("CREDENTIALS"))
-	b.WriteString("\n")
-	b.WriteString(fmt.Sprintf("  %s Multi-Modal Identity Verification System\n", label("Patent")))
-	b.WriteString(fmt.Sprintf("              %s\n", dim("#202511094809 · Published Nov 2025")))
-	b.WriteString(fmt.Sprintf("  %s 5000+ members · Elixir Tech Community Lead\n", label("Community")))
-	b.WriteString(fmt.Sprintf("  %s 230+ automated tests across projects\n", label("Testing")))
+	rightColumn := []Section{
+		{Title: "Featured Projects", Content: projectsContent},
+		{Title: "Experience", Content: experienceContent},
+	}
 
-	// Footer
-	b.WriteString("\n")
-	b.WriteString(divider())
-	b.WriteString("\n")
-	b.WriteString(dim("Open to backend engineering roles · granthcodes@gmail.com"))
-	b.WriteString("\n\n")
+	// --- RENDER ---
+	var leftBlock, rightBlock []string
+	for _, s := range leftColumn {
+		leftBlock = append(leftBlock, buildPanel(s.Title, s.Content, leftPanelWidth))
+	}
+	for _, s := range rightColumn {
+		rightBlock = append(rightBlock, buildPanel(s.Title, s.Content, rightPanelWidth))
+	}
 
-	fmt.Print(b.String())
+	mainContent := lipgloss.JoinHorizontal(
+		lipgloss.Top,
+		lipgloss.JoinVertical(lipgloss.Top, leftBlock...),
+		lipgloss.JoinVertical(lipgloss.Top, rightBlock...),
+	)
+
+	// Final assembly
+	ui := containerStyle.Render(
+		lipgloss.JoinVertical(
+			lipgloss.Left,
+			buildHeader(),
+			mainContent,
+			buildFooter(),
+		),
+	)
+
+	fmt.Println(ui)
 }
