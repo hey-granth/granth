@@ -102,9 +102,8 @@ const Navbar = () => {
                             const sectionId = link.href.replace('#', '');
                             const isActive = link.external ? location.pathname.startsWith('/blog') : activeSection === sectionId;
 
-                            const commonClasses = `px-3 py-2 text-liner text-sm uppercase tracking-wider transition-colors ${
-                                isActive ? 'accent' : 'text-text-secondary hover:text-text-primary'
-                            }`;
+                            const commonClasses = `px-3 py-2 text-liner text-sm uppercase tracking-wider transition-colors ${isActive ? 'accent' : 'text-text-secondary hover:text-text-primary'
+                                }`;
 
                             if (link.external) {
                                 return (
@@ -147,13 +146,14 @@ const Navbar = () => {
                 <AnimatePresence>
                     {isMobileMenuOpen && (
                         <motion.div
-                            className="md:hidden glass border-t border-dark-700"
+                            className="md:hidden glass border-t border-dark-700 relative z-50"
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: 'auto' }}
                             exit={{ opacity: 0, height: 0 }}
                             transition={{ duration: 0.2 }}
+                            style={{ pointerEvents: 'auto' }}
                         >
-                            <div className="py-4 space-y-1">
+                            <div className="py-4 space-y-1 relative z-50">
                                 {navLinks.map((link) => {
                                     const sectionId = link.href.replace('#', '');
                                     const isActive = link.external ? location.pathname.startsWith('/blog') : activeSection === sectionId;
@@ -163,7 +163,7 @@ const Navbar = () => {
                                             <Link
                                                 key={link.name}
                                                 to={link.href}
-                                                className={`block px-4 py-3 text-liner text-base uppercase tracking-wider ${isActive ? 'accent' : 'text-text-secondary'}`}
+                                                className={`block px-4 py-3 text-liner text-base uppercase tracking-wider transition-colors cursor-pointer relative z-50 ${isActive ? 'accent' : 'text-text-secondary hover:text-text-primary'}`}
                                                 onClick={() => setIsMobileMenuOpen(false)}
                                             >
                                                 {link.name}
@@ -175,7 +175,7 @@ const Navbar = () => {
                                         <a
                                             key={link.name}
                                             href={link.href}
-                                            className={`block px-4 py-3 text-liner text-base uppercase tracking-wider ${isActive ? 'accent' : 'text-text-secondary'}`}
+                                            className={`block px-4 py-3 text-liner text-base uppercase tracking-wider transition-colors cursor-pointer relative z-50 ${isActive ? 'accent' : 'text-text-secondary hover:text-text-primary'}`}
                                             onClick={(e) => handleSectionClick(e, link.href)}
                                         >
                                             {link.name}
