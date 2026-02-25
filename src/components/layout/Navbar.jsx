@@ -1,15 +1,18 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { navLinks, personalInfo } from '../../data/content';
 
-const ease = [0.16, 1, 0.3, 1];
+const ease = [0.4, 0, 0.2, 1];
+const EXPAND_LETTERS = ['R', 'A', 'N', 'T', 'H'];
 
 const Navbar = () => {
     const [isVisible, setIsVisible] = useState(true);
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [activeSection, setActiveSection] = useState('home');
+    const [isLogoHovered, setIsLogoHovered] = useState(false);
+    const [scrollDepth, setScrollDepth] = useState(0); // 0–1
     const lastScrollY = useRef(0);
 
     const { scrollY } = useScroll();
@@ -27,6 +30,7 @@ const Navbar = () => {
         }
 
         setIsScrolled(latest > 50);
+        setScrollDepth(Math.min(latest / 100, 1));
         lastScrollY.current = latest;
     });
 
@@ -75,6 +79,10 @@ const Navbar = () => {
         }
     };
 
+    // Scroll-reactive nav styles
+    const blurAmount = 16 + scrollDepth * 8;
+    const navShadowOpacity = 0.18 + scrollDepth * 0.08;
+
     return (
         <motion.header
             className="fixed top-0 left-0 right-0 z-50"
@@ -91,20 +99,54 @@ const Navbar = () => {
                     padding: '14px 28px',
                     borderRadius: '999px',
                     background: 'linear-gradient(to bottom, rgba(255,255,255,0.45), rgba(255,255,255,0.18))',
-                    backdropFilter: 'blur(16px) saturate(120%)',
-                    WebkitBackdropFilter: 'blur(16px) saturate(120%)',
+                    backdropFilter: `blur(${blurAmount}px) saturate(120%)`,
+                    WebkitBackdropFilter: `blur(${blurAmount}px) saturate(120%)`,
                     border: '1px solid rgba(255,255,255,0.35)',
-                    boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.6), 0 15px 40px rgba(120,100,200,0.18)',
+                    boxShadow: `inset 0 1px 0 rgba(255,255,255,0.6), 0 15px 40px rgba(120,100,200,${navShadowOpacity})`,
                 }}
             >
                 <div className="flex items-center justify-between">
-                    {/* Logo — serif */}
+                    {/* Logo — serif with meta reveal */}
                     <Link
                         to="/"
-                        className="font-bold text-xl"
-                        style={{ fontFamily: 'var(--font-serif)', color: 'var(--color-text-primary)' }}
+                        className="font-bold text-xl flex items-baseline"
+                        style={{
+                            fontFamily: 'var(--font-serif)',
+                            color: isLogoHovered ? 'var(--color-plum)' : 'var(--color-text-primary)',
+                            letterSpacing: isLogoHovered ? '0.03em' : `${-0.02 * scrollDepth}em`,
+                            transition: 'color 0.2s cubic-bezier(0.4,0,0.2,1), letter-spacing 0.3s cubic-bezier(0.4,0,0.2,1)',
+                            textDecoration: 'none',
+                        }}
+                        onMouseEnter={() => setIsLogoHovered(true)}
+                        onMouseLeave={() => setIsLogoHovered(false)}
                     >
-                        G<span style={{ color: 'var(--color-plum)' }}>.</span>
+                        <span>G</span>
+                        <span style={{ color: 'var(--color-plum)' }}>.</span>
+                        {/* Expanding letters */}
+                        <span
+                            style={{
+                                display: 'inline-flex',
+                                overflow: 'hidden',
+                                maxWidth: isLogoHovered ? '120px' : '0px',
+                                transition: 'max-width 0.35s cubic-bezier(0.4,0,0.2,1)',
+                            }}
+                        >
+                            {EXPAND_LETTERS.map((letter, i) => (
+                                <span
+                                    key={letter}
+                                    style={{
+                                        display: 'inline-block',
+                                        opacity: isLogoHovered ? 1 : 0,
+                                        transform: isLogoHovered ? 'translateY(0)' : 'translateY(4px)',
+                                        transition: `opacity 0.2s cubic-bezier(0.4,0,0.2,1) ${i * 40}ms, transform 0.2s cubic-bezier(0.4,0,0.2,1) ${i * 40}ms`,
+                                        fontSize: '0.75em',
+                                        letterSpacing: '0.04em',
+                                    }}
+                                >
+                                    {letter}
+                                </span>
+                            ))}
+                        </span>
                     </Link>
 
                     {/* Desktop nav */}
@@ -225,3 +267,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

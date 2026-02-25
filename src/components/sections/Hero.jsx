@@ -1,14 +1,40 @@
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { personalInfo, hero } from '../../data/content';
 
-const ease = [0.16, 1, 0.3, 1];
+const ease = [0.4, 0, 0.2, 1];
 
 const Hero = () => {
+    const grooveRef = useRef(null);
+    const sectionRef = useRef(null);
+    const [grooveOpacity, setGrooveOpacity] = useState(1);
+
+    // Groove parallax — subtle mousemove shift
+    const handleMouseMove = useCallback((e) => {
+        if (!grooveRef.current || !sectionRef.current) return;
+        const rect = sectionRef.current.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2; // -1 to 1
+        const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+        grooveRef.current.style.transform = `translate(${x * 5}px, ${y * 3}px)`;
+    }, []);
+
+    // Scroll-reactive groove opacity
+    useEffect(() => {
+        const handleScroll = () => {
+            const depth = Math.min(window.scrollY / 100, 1);
+            setGrooveOpacity(1 + depth * 0.15); // 1.0 → 1.15
+        };
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
     return (
         <section
             id="home"
+            ref={sectionRef}
             className="relative min-h-screen min-h-dvh flex items-end overflow-hidden"
             style={{ paddingBottom: 'clamp(4rem, 10vh, 8rem)' }}
+            onMouseMove={handleMouseMove}
         >
             {/* Layer 1 — Top-down lilac wash (intensified) */}
             <div
@@ -26,13 +52,19 @@ const Hero = () => {
                 }}
             />
 
-            {/* Layer 2 — Organic groove lines (blended into paper) */}
+            {/* Layer 2 — Organic groove lines (with parallax) */}
             <svg
+                ref={grooveRef}
                 className="absolute inset-0 w-full h-full pointer-events-none"
                 viewBox="0 0 1440 900"
                 preserveAspectRatio="none"
                 xmlns="http://www.w3.org/2000/svg"
-                style={{ filter: 'blur(0.5px)', mixBlendMode: 'multiply' }}
+                style={{
+                    filter: 'blur(0.5px)',
+                    mixBlendMode: 'multiply',
+                    opacity: grooveOpacity,
+                    transition: 'transform 0.6s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease',
+                }}
             >
                 {/* Top — lighter */}
                 <path d="M-20 140 Q 250 90, 540 170 T 1050 120 T 1460 195" stroke="rgba(0,0,0,0.10)" strokeWidth="1.0" fill="none" />
@@ -119,9 +151,13 @@ const Hero = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, ease, delay: 0.5 }}
                     >
-                        <a href="#work" className="cta-primary">
+                        <a href="#work" className="cta-primary group">
                             View Work
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <svg
+                                width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" strokeWidth="2"
+                                className="cta-arrow"
+                            >
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                             </svg>
                         </a>
@@ -174,3 +210,4 @@ const Hero = () => {
 };
 
 export default Hero;
+
