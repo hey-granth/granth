@@ -10,15 +10,59 @@ const Hero = () => {
             className="relative min-h-screen min-h-dvh flex items-end overflow-hidden"
             style={{ paddingBottom: 'clamp(4rem, 10vh, 8rem)' }}
         >
-            {/* Hero gradient wash */}
+            {/* Layer 1 — Top-down lilac wash (intensified) */}
             <div
                 className="absolute inset-0 pointer-events-none"
                 style={{
-                    background: `
-                        radial-gradient(ellipse 100% 80% at 30% 20%, rgba(232, 224, 240, 0.6) 0%, transparent 50%),
-                        radial-gradient(ellipse 80% 60% at 70% 60%, rgba(242, 224, 232, 0.4) 0%, transparent 50%),
-                        radial-gradient(ellipse 60% 40% at 50% 90%, rgba(245, 230, 216, 0.3) 0%, transparent 50%)
-                    `,
+                    background: 'linear-gradient(to bottom, rgba(199,184,255,0.32) 0%, rgba(199,184,255,0.15) 35%, transparent 62%)',
+                }}
+            />
+
+            {/* Shading depth — top-right quadrant */}
+            <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                    background: 'radial-gradient(circle at 80% 20%, rgba(199,184,255,0.18), transparent 60%)',
+                }}
+            />
+
+            {/* Layer 2 — Organic groove lines (blended into paper) */}
+            <svg
+                className="absolute inset-0 w-full h-full pointer-events-none"
+                viewBox="0 0 1440 900"
+                preserveAspectRatio="none"
+                xmlns="http://www.w3.org/2000/svg"
+                style={{ filter: 'blur(0.5px)', mixBlendMode: 'multiply' }}
+            >
+                {/* Top — lighter */}
+                <path d="M-20 140 Q 250 90, 540 170 T 1050 120 T 1460 195" stroke="rgba(0,0,0,0.10)" strokeWidth="1.0" fill="none" />
+                {/* Upper-mid — moderate */}
+                <path d="M-40 300 Q 200 240, 520 330 T 980 270 T 1460 350" stroke="rgba(0,0,0,0.14)" strokeWidth="1.6" fill="none" />
+                {/* Mid — strongest */}
+                <path d="M-10 460 Q 320 390, 680 480 T 1180 420 T 1460 500" stroke="rgba(0,0,0,0.18)" strokeWidth="2.2" fill="none" />
+                {/* Lower-mid — moderate */}
+                <path d="M-30 620 Q 280 560, 620 640 T 1080 590 T 1460 660" stroke="rgba(0,0,0,0.13)" strokeWidth="1.4" fill="none" />
+                {/* Bottom — softer near text */}
+                <path d="M-50 770 Q 310 730, 700 790 T 1150 750 T 1460 800" stroke="rgba(0,0,0,0.08)" strokeWidth="1.0" fill="none" />
+            </svg>
+
+            {/* Noise mask over grooves (embeds them into paper) */}
+            <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                    opacity: 0.03,
+                    mixBlendMode: 'overlay',
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='gn'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23gn)'/%3E%3C/svg%3E")`,
+                }}
+            />
+
+            {/* Layer 3 — Paper texture */}
+            <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                    opacity: 0.05,
+                    mixBlendMode: 'multiply',
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)'/%3E%3C/svg%3E")`,
                 }}
             />
 
