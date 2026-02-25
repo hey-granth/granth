@@ -17,7 +17,7 @@ const techDocs = {
     Git: 'https://git-scm.com/doc',
 };
 
-// Stack zone configuration — normalized symmetry
+// Renamed for editorial clarity — keep same data structure
 const stackZones = {
     core: { label: 'CORE' },
     data: { label: 'DATA' },
@@ -32,20 +32,22 @@ const Proof = () => {
 
     return (
         <section id="credentials" ref={ref} className="section-padding relative">
-            {/* Section-specific depth layer */}
+            {/* Subtle section wash */}
             <div
                 className="absolute inset-0 pointer-events-none"
                 style={{
                     background: `
-                        linear-gradient(180deg, 
-                            rgba(7, 7, 18, 0.5) 0%, 
-                            rgba(10, 10, 24, 0.6) 50%, 
-                            rgba(7, 7, 18, 0.5) 100%
+                        linear-gradient(180deg,
+                            transparent 0%,
+                            rgba(242, 224, 232, 0.15) 30%,
+                            rgba(242, 224, 232, 0.2) 50%,
+                            rgba(242, 224, 232, 0.15) 70%,
+                            transparent 100%
                         )
                     `,
                 }}
             />
-            <div className="section-container">
+            <div className="section-container relative">
                 {/* Header */}
                 <motion.header
                     className="mb-16"
@@ -83,88 +85,20 @@ const Proof = () => {
                 >
                     <div className="flex flex-wrap items-center gap-4 mb-4">
                         <span className="era-badge">Patent {proof.patent.status}</span>
-                        <span className="text-liner text-sm text-text-secondary">
+                        <span className="text-liner text-sm text-text-muted">
                             #{proof.patent.number}
                         </span>
                     </div>
                     <h3 className="text-display-sm text-text-primary mb-2">
                         {proof.patent.title}
                     </h3>
-                    <p className="text-liner text-sm text-text-secondary">
+                    <p className="text-liner text-sm text-text-muted">
                         Published {proof.patent.date}
                     </p>
                 </motion.div>
 
-                {/* ═══════════════════════════════════════════════════════════════
-                    THE STACK — Symmetric, functional, linked
-                ═══════════════════════════════════════════════════════════════ */}
+                {/* The Stack */}
                 <div ref={stackRef} className="stack-constellation">
-                    {/* Background orbital system */}
-                    <div className="stack-orbital-bg">
-                        {/* Depth orbs behind each zone */}
-                        <div className="stack-depth-orb stack-depth-orb--core" />
-                        <div className="stack-depth-orb stack-depth-orb--data" />
-                        <div className="stack-depth-orb stack-depth-orb--infra" />
-
-                        {/* Orbital arcs framing the constellation */}
-                        <svg
-                            className="stack-orbital-arcs"
-                            viewBox="0 0 1200 400"
-                            preserveAspectRatio="xMidYMid slice"
-                        >
-                            {/* Outer envelope */}
-                            <ellipse
-                                cx="600"
-                                cy="200"
-                                rx="550"
-                                ry="180"
-                                fill="none"
-                                stroke="rgba(109, 40, 217, 0.045)"
-                                strokeWidth="1"
-                            />
-                            {/* Mid arc */}
-                            <ellipse
-                                cx="600"
-                                cy="200"
-                                rx="420"
-                                ry="140"
-                                fill="none"
-                                stroke="rgba(124, 58, 237, 0.035)"
-                                strokeWidth="0.8"
-                                strokeDasharray="4 8"
-                            />
-                            {/* Inner arc */}
-                            <ellipse
-                                cx="600"
-                                cy="200"
-                                rx="280"
-                                ry="95"
-                                fill="none"
-                                stroke="rgba(139, 92, 246, 0.03)"
-                                strokeWidth="0.6"
-                            />
-
-                            {/* Connecting paths suggesting flow */}
-                            <path
-                                d="M 180 200 Q 400 150 600 200 Q 800 250 1020 200"
-                                fill="none"
-                                stroke="rgba(124, 58, 237, 0.025)"
-                                strokeWidth="1"
-                                strokeDasharray="2 6"
-                            />
-                            <path
-                                d="M 250 280 Q 450 200 600 200 Q 750 200 950 280"
-                                fill="none"
-                                stroke="rgba(139, 92, 246, 0.02)"
-                                strokeWidth="0.8"
-                            />
-                        </svg>
-
-                        {/* Dense grain overlay for this section */}
-                        <div className="stack-grain" />
-                    </div>
-
-                    {/* Section anchor — chapter marker style */}
                     <motion.div
                         className="stack-anchor"
                         initial={{ opacity: 0 }}
@@ -175,7 +109,6 @@ const Proof = () => {
                         <div className="stack-anchor-line" />
                     </motion.div>
 
-                    {/* Symmetric zone grid */}
                     <div className="stack-zones-symmetric">
                         {Object.entries(proof.stack).map(([category, techs], zoneIndex) => {
                             const zone = stackZones[category];
@@ -192,12 +125,10 @@ const Proof = () => {
                                         delay: 0.15 + zoneIndex * 0.1
                                     }}
                                 >
-                                    {/* Zone label — aligned baseline */}
                                     <h4 className="stack-zone-label-symmetric">
                                         {zone.label}
                                     </h4>
 
-                                    {/* Clustered items — all uniform */}
                                     <div className="stack-cluster-symmetric">
                                         {techs.map((tech, techIndex) => (
                                             <motion.a

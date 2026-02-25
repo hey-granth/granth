@@ -42,148 +42,35 @@ const Contact = () => {
             ref={ref}
             className="py-24 md:py-32 relative overflow-hidden"
         >
-            {/* ═══════════════════════════════════════════════════════════════
-                FINAL SECTION — GRAVITATIONAL CONVERGENCE
-                Dense, heavy, orbital arcs converging toward closure.
-            ═══════════════════════════════════════════════════════════════ */}
-
-            {/* Gravitational pull gradient — intensifying toward center-bottom */}
+            {/* Soft gradient wash */}
             <div
                 className="absolute inset-0 pointer-events-none"
                 style={{
                     background: `
-                        radial-gradient(ellipse 85% 65% at 50% 95%, 
-                            rgba(109, 40, 217, 0.1) 0%, 
-                            rgba(124, 58, 237, 0.04) 30%,
-                            transparent 55%
+                        radial-gradient(ellipse 80% 60% at 50% 80%,
+                            rgba(232, 224, 240, 0.3) 0%,
+                            transparent 50%
                         ),
-                        linear-gradient(180deg,
-                            transparent 0%,
-                            rgba(8, 5, 18, 0.15) 40%,
-                            rgba(6, 4, 14, 0.3) 70%,
-                            rgba(5, 3, 12, 0.45) 100%
-                        )
-                    `,
-                }}
-            />
-
-            {/* Converging orbital hint — enhanced SVG system */}
-            <svg
-                className="absolute inset-0 w-full h-full pointer-events-none"
-                viewBox="0 0 1920 700"
-                preserveAspectRatio="xMidYMid slice"
-            >
-                {/* Outermost convergence arc */}
-                <ellipse
-                    cx="960"
-                    cy="800"
-                    rx="1000"
-                    ry="340"
-                    fill="none"
-                    stroke="rgba(109, 40, 217, 0.05)"
-                    strokeWidth="1.2"
-                    transform="rotate(-1.5 960 800)"
-                />
-                {/* Arc 2 */}
-                <ellipse
-                    cx="960"
-                    cy="880"
-                    rx="820"
-                    ry="280"
-                    fill="none"
-                    stroke="rgba(124, 58, 237, 0.04)"
-                    strokeWidth="0.9"
-                    transform="rotate(1 960 880)"
-                />
-                {/* Arc 3 — dashed texture */}
-                <ellipse
-                    cx="960"
-                    cy="960"
-                    rx="640"
-                    ry="220"
-                    fill="none"
-                    stroke="rgba(139, 92, 246, 0.045)"
-                    strokeWidth="0.6"
-                    strokeDasharray="5 8"
-                    transform="rotate(-0.5 960 960)"
-                />
-                {/* Innermost arc */}
-                <ellipse
-                    cx="960"
-                    cy="1020"
-                    rx="460"
-                    ry="160"
-                    fill="none"
-                    stroke="rgba(167, 139, 250, 0.035)"
-                    strokeWidth="0.8"
-                    transform="rotate(0.5 960 1020)"
-                />
-            </svg>
-
-            {/* Dense depth marker — center pull, intensified */}
-            <div
-                className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[350px] pointer-events-none"
-                style={{
-                    background: `
-                        radial-gradient(ellipse 100% 85% at 50% 100%, 
-                            rgba(109, 40, 217, 0.08) 0%, 
-                            rgba(124, 58, 237, 0.025) 40%,
-                            transparent 60%
-                        )
-                    `,
-                    filter: 'blur(55px)',
-                }}
-            />
-
-            {/* Corner density — left */}
-            <div
-                className="absolute bottom-0 left-0 w-[40vw] h-[50%] pointer-events-none"
-                style={{
-                    background: `
-                        radial-gradient(ellipse 100% 80% at 0% 100%, 
-                            rgba(7, 5, 15, 0.4) 0%, 
+                        radial-gradient(ellipse 60% 40% at 30% 60%,
+                            rgba(245, 230, 216, 0.2) 0%,
                             transparent 50%
                         )
                     `,
                 }}
             />
 
-            {/* Corner density — right */}
-            <div
-                className="absolute bottom-0 right-0 w-[40vw] h-[50%] pointer-events-none"
-                style={{
-                    background: `
-                        radial-gradient(ellipse 100% 80% at 100% 100%, 
-                            rgba(7, 5, 15, 0.35) 0%, 
-                            transparent 45%
-                        )
-                    `,
-                }}
-            />
-
-            {/* Subtle grain intensification */}
-            <div
-                className="absolute inset-0 pointer-events-none opacity-[0.03]"
-                style={{
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='contactgrain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23contactgrain)'/%3E%3C/svg%3E")`,
-                    mixBlendMode: 'overlay',
-                }}
-            />
-
             <div className="section-container relative z-10">
-                {/* Frame / divider — orbital accent */}
+                {/* Editorial divider */}
                 <motion.div
                     className="w-12 h-px mb-8"
-                    style={{
-                        background: 'linear-gradient(90deg, rgba(124, 58, 237, 0.6), rgba(139, 92, 246, 0.2))',
-                    }}
+                    style={{ background: 'var(--color-plum)' }}
                     initial={{ scaleX: 0 }}
                     animate={isInView ? { scaleX: 1 } : {}}
                     transition={{ duration: 0.6, ease }}
                     transformOrigin="left"
                 />
 
-                {/* Primary statement — larger, declarative */}
+                {/* Primary statement */}
                 <motion.h2
                     className="text-display-lg text-text-primary mb-4 max-w-lg"
                     initial={{ opacity: 0, y: 20 }}
@@ -193,7 +80,7 @@ const Contact = () => {
                     Backend engineering. Production systems. Scale problems.
                 </motion.h2>
 
-                {/* Secondary context — one line */}
+                {/* Secondary context */}
                 <motion.p
                     className="text-liner mb-10"
                     initial={{ opacity: 0, y: 15 }}
@@ -203,7 +90,7 @@ const Contact = () => {
                     Interested in systems work, high-load backends, or technical conversations.
                 </motion.p>
 
-                {/* Contact actions — visually dominant, grouped tight */}
+                {/* Contact actions */}
                 <motion.div
                     className="flex flex-wrap gap-3"
                     initial={{ opacity: 0, y: 15 }}

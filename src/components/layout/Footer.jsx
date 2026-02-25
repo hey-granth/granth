@@ -28,127 +28,51 @@ const Footer = () => {
 
     return (
         <footer className="relative overflow-hidden">
-            {/* ═══════════════════════════════════════════════════════════════
-                THE FINAL CHAPTER — Dense, gravitational, authoritative
-            ═══════════════════════════════════════════════════════════════ */}
-
-            {/* Transition divider — intentional, low-contrast */}
-            <div
-                className="absolute top-0 left-0 right-0 h-px"
-                style={{
-                    background: 'linear-gradient(90deg, transparent 5%, rgba(124, 58, 237, 0.15) 30%, rgba(139, 92, 246, 0.2) 50%, rgba(124, 58, 237, 0.15) 70%, transparent 95%)',
-                }}
-            />
-
-            {/* Dense background — darker than everything above */}
+            {/* Gradient transition into footer */}
             <div
                 className="absolute inset-0 pointer-events-none"
                 style={{
                     background: `
-                        radial-gradient(ellipse 120% 60% at 50% -10%, 
-                            rgba(109, 40, 217, 0.08) 0%, 
-                            transparent 45%
-                        ),
-                        radial-gradient(ellipse 80% 50% at 20% 100%, 
-                            rgba(6, 4, 14, 0.9) 0%, 
-                            transparent 50%
-                        ),
-                        radial-gradient(ellipse 80% 50% at 80% 100%, 
-                            rgba(6, 4, 14, 0.9) 0%, 
-                            transparent 50%
+                        radial-gradient(ellipse 100% 50% at 50% 0%,
+                            rgba(232, 224, 240, 0.2) 0%,
+                            transparent 40%
                         ),
                         linear-gradient(180deg,
-                            rgba(5, 5, 16, 0.4) 0%,
-                            rgba(3, 3, 10, 0.98) 40%,
-                            rgba(2, 2, 8, 1) 100%
+                            var(--color-cream) 0%,
+                            var(--color-cream-warm) 40%,
+                            var(--color-cream-deep) 100%
                         )
                     `,
                 }}
             />
 
-            {/* Vignette — pulls downward */}
-            <div
-                className="absolute inset-0 pointer-events-none"
-                style={{
-                    background: `
-                        radial-gradient(ellipse 100% 100% at 50% 50%, 
-                            transparent 30%,
-                            rgba(0, 0, 0, 0.4) 100%
-                        )
-                    `,
-                }}
-            />
+            {/* Top divider */}
+            <div className="section-container relative z-10">
+                <div className="editorial-divider" />
+            </div>
 
-            {/* Converging arcs — gravitational pull to center-bottom */}
-            <svg
-                className="absolute inset-0 w-full h-full pointer-events-none"
-                viewBox="0 0 1920 400"
-                preserveAspectRatio="xMidYMid slice"
-            >
-                {/* Outer convergence */}
-                <ellipse
-                    cx="960"
-                    cy="500"
-                    rx="1200"
-                    ry="280"
-                    fill="none"
-                    stroke="rgba(109, 40, 217, 0.04)"
-                    strokeWidth="1.5"
-                />
-                {/* Mid convergence */}
-                <ellipse
-                    cx="960"
-                    cy="520"
-                    rx="900"
-                    ry="220"
-                    fill="none"
-                    stroke="rgba(124, 58, 237, 0.035)"
-                    strokeWidth="1"
-                    strokeDasharray="3 5"
-                />
-                {/* Inner convergence */}
-                <ellipse
-                    cx="960"
-                    cy="540"
-                    rx="600"
-                    ry="160"
-                    fill="none"
-                    stroke="rgba(139, 92, 246, 0.03)"
-                    strokeWidth="0.8"
-                />
-                {/* Core pull */}
-                <ellipse
-                    cx="960"
-                    cy="560"
-                    rx="300"
-                    ry="80"
-                    fill="none"
-                    stroke="rgba(167, 139, 250, 0.025)"
-                    strokeWidth="0.6"
-                />
-            </svg>
+            <div className="section-container relative z-10 pt-12 pb-8 md:pt-16 md:pb-10">
 
-            {/* Increased grain density */}
-            <div
-                className="absolute inset-0 pointer-events-none opacity-[0.045]"
-                style={{
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='footergrain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23footergrain)'/%3E%3C/svg%3E")`,
-                    mixBlendMode: 'overlay',
-                }}
-            />
+                {/* ═══ OVERSIZED NAME ═══ */}
+                <div className="mb-12 md:mb-16 overflow-hidden">
+                    <a
+                        href="#"
+                        className="text-display-footer block text-center transition-colors duration-300 hover:text-plum-deep"
+                        style={{
+                            opacity: 0.08,
+                            userSelect: 'none',
+                        }}
+                    >
+                        GRANTH
+                    </a>
+                </div>
 
-            {/* Content */}
-            <div className="section-container relative z-10 pt-10 pb-8 md:pt-12 md:pb-10">
-
-                {/* Three-zone grid — asymmetric weighting */}
+                {/* Three-zone grid */}
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-6 mb-8">
 
-                    {/* ═══ IDENTITY ZONE — dominant, anchoring ═══ */}
+                    {/* Identity zone */}
                     <div className="md:col-span-5 space-y-3">
-                        <a
-                            href="#"
-                            className="footer-identity"
-                        >
+                        <a href="#" className="footer-identity">
                             {personalInfo.name.split(' ')[0]}
                             <span className="footer-identity-dot">.</span>
                         </a>
@@ -157,16 +81,13 @@ const Footer = () => {
                         </p>
                     </div>
 
-                    {/* ═══ NAVIGATION ZONE — secondary, structured ═══ */}
+                    {/* Navigation zone */}
                     <div className="md:col-span-4 md:pl-8">
                         <h4 className="footer-label">Navigate</h4>
                         <nav className="footer-nav">
                             {navLinks.map((link, index) => (
                                 <span key={link.name} className="flex items-center">
-                                    <a
-                                        href={link.href}
-                                        className="footer-nav-link"
-                                    >
+                                    <a href={link.href} className="footer-nav-link">
                                         {link.name}
                                     </a>
                                     {index < navLinks.length - 1 && (
@@ -177,7 +98,7 @@ const Footer = () => {
                         </nav>
                     </div>
 
-                    {/* ═══ CONNECTION ZONE — intentional, visible ═══ */}
+                    {/* Connection zone */}
                     <div className="md:col-span-3 md:text-right">
                         <h4 className="footer-label md:text-right">Connect</h4>
                         <div className="flex items-center gap-3 md:justify-end mb-3">
@@ -225,10 +146,10 @@ const Footer = () => {
                     </div>
                 </div>
 
-                {/* Bottom separator — faint, intentional */}
+                {/* Bottom separator */}
                 <div className="footer-separator" />
 
-                {/* Bottom bar — compressed */}
+                {/* Bottom bar */}
                 <div className="flex flex-col md:flex-row items-center justify-between gap-3 pt-5">
                     <p className="footer-copyright">
                         © {year} {personalInfo.name}. Built with precision.

@@ -10,20 +10,22 @@ const Philosophy = () => {
 
     return (
         <section id="philosophy" ref={ref} className="section-padding relative">
-            {/* Section-specific depth layer */}
+            {/* Subtle section background wash */}
             <div
                 className="absolute inset-0 pointer-events-none"
                 style={{
                     background: `
-                        linear-gradient(180deg, 
-                            rgba(7, 7, 18, 0.5) 0%, 
-                            rgba(10, 10, 24, 0.6) 50%, 
-                            rgba(7, 7, 18, 0.5) 100%
+                        linear-gradient(180deg,
+                            transparent 0%,
+                            rgba(232, 224, 240, 0.2) 30%,
+                            rgba(232, 224, 240, 0.25) 50%,
+                            rgba(232, 224, 240, 0.2) 70%,
+                            transparent 100%
                         )
                     `,
                 }}
             />
-            <div className="section-container">
+            <div className="section-container relative">
                 {/* Header */}
                 <motion.header
                     className="mb-16"
@@ -59,12 +61,13 @@ const Philosophy = () => {
 
                 {/* Credo */}
                 <motion.div
-                    className="border-t border-dark-700 pt-12"
+                    className="pt-12"
+                    style={{ borderTop: '1px solid var(--color-divider-strong)' }}
                     initial={{ opacity: 0 }}
                     animate={isInView ? { opacity: 1 } : {}}
                     transition={{ duration: 0.8, delay: 0.4 }}
                 >
-                    <blockquote className="text-display-md text-text-primary max-w-2xl">
+                    <blockquote className="text-display-md text-text-primary max-w-2xl" style={{ fontStyle: 'italic' }}>
                         "{philosophy.credo}"
                     </blockquote>
                 </motion.div>

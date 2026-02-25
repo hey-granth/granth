@@ -1,6 +1,7 @@
 import { Navbar, Footer } from '../components/layout';
 import {
     Hero,
+    ContentGrid,
     Projects,
     Philosophy,
     Experience,
@@ -16,6 +17,7 @@ const Home = () => {
             <Navbar />
             <main className="relative z-10">
                 <Hero />
+                <ContentGrid />
                 <Projects />
                 <Philosophy />
                 <Experience />

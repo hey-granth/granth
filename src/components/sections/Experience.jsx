@@ -17,10 +17,10 @@ const EraCard = ({ era, index }) => {
             transition={{ duration: 0.7, ease, delay: index * 0.1 }}
         >
             {/* Timeline line */}
-            <div className="absolute left-0 top-2 bottom-0 w-px bg-dark-500" />
+            <div className="absolute left-0 top-2 bottom-0 w-px" style={{ background: 'var(--color-divider-strong)' }} />
 
             {/* Timeline dot */}
-            <div className="absolute left-0 top-2 w-2 h-2 -translate-x-[3px] rounded-full bg-jamun" />
+            <div className="absolute left-0 top-2 w-2 h-2 -translate-x-[3px] rounded-full" style={{ background: 'var(--color-plum)' }} />
 
             {/* Content */}
             <div className="mb-3">
@@ -31,10 +31,10 @@ const EraCard = ({ era, index }) => {
                 {era.title}
             </h3>
 
-            <div className="flex items-center gap-2 mt-1 text-liner text-s">
+            <div className="flex items-center gap-2 mt-1 text-liner text-sm">
                 <span className="accent">{era.company}</span>
-                <span className="text-text-secondary">·</span>
-                <span className="text-text-secondary">{era.period}</span>
+                <span className="text-text-muted">·</span>
+                <span className="text-text-muted">{era.period}</span>
             </div>
 
             <p className="text-liner mt-4 mb-4">
@@ -43,7 +43,7 @@ const EraCard = ({ era, index }) => {
 
             <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-1">
                 {era.highlights.map((item, i) => (
-                    <li key={i} className="flex items-start gap-2 text-liner text-medium text-text-secondary">
+                    <li key={i} className="flex items-start gap-2 text-liner text-text-muted text-sm">
                         <span className="accent">→</span>
                         {item}
                     </li>

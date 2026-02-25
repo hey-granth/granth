@@ -62,13 +62,13 @@ const ProjectCard = ({ project, index }) => {
             </div>
 
             {/* Footer */}
-            <div className="flex flex-wrap items-end justify-between gap-4 pt-6 border-t border-dark-700">
+            <div className="flex flex-wrap items-end justify-between gap-4 pt-6" style={{ borderTop: '1px solid var(--color-divider)' }}>
                 <div className="flex flex-wrap gap-2">
                     {project.stack.map((tech) => (
                         <span key={tech} className="tech-badge">{tech}</span>
                     ))}
                 </div>
-                <p className="text-liner text-text-secondary text-s">
+                <p className="text-liner text-text-muted text-sm">
                     {project.ownership}
                 </p>
             </div>
