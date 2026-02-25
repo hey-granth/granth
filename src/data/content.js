@@ -1,4 +1,4 @@
-// Portfolio content — declarative tone, short lines, numbers over adjectives
+// Portfolio content — architect voice, declarative, precise
 
 export const personalInfo = {
     name: "Granth Agarwal",
@@ -10,83 +10,83 @@ export const personalInfo = {
     resume: "/resume.pdf",
 };
 
-// Hero — lead with name, follow with claim, end with anchor
+// Hero
 export const hero = {
-    statement: "I build systems that don't break.",
-    subtext: "Backend architecture · Scale · Ownership",
+    statement: "I architect backend systems built to hold under pressure.",
+    subtext: "Systems Design · Reliability · Ownership",
 };
 
-// Section titles — track names, not blog headers
+// Section titles
 export const sectionTitles = {
-    work: "THE WORK",
-    philosophy: "HOW I BUILD",
-    timeline: "THE ERAS",
+    work: "WORK",
+    philosophy: "APPROACH",
+    timeline: "RECORD",
     proof: "CREDENTIALS",
     close: "—",
 };
 
-// Projects — feature drops
+// Projects — context, constraint, decision, result
 export const projects = [
     {
         name: "Stockway",
-        tagline: "Role-based supply chain operations",
-        problem: "Complex supply chain routing across multiple vendors and roles.",
-        solution: "Role-based supply chain backend with complex order workflows.",
+        tagline: "Multi-tenant supply chain backend",
+        problem: "Supply chain routing across vendors required strict role isolation and geospatial awareness.",
+        solution: "Multi-tenant RBAC architecture with PostGIS discovery and async order workflows.",
         depth: [
-            "Multi-tenant architecture with strict RBAC",
-            "Supabase authentication & PostGIS geospatial discovery",
-            "REST API for orders, payments, delivery tracking",
-            "Async workflows handled by Celery + Redis",
+            "Strict role-based access control across tenant boundaries",
+            "PostGIS geospatial queries for vendor discovery",
+            "REST API surface covering orders, payments, and delivery tracking",
+            "Celery + Redis for async workflow orchestration",
         ],
         metrics: {
             value: "40+",
             label: "APIs shipped",
         },
         stack: ["Django REST Framework", "React", "PostgreSQL", "PostGIS", "Celery", "Redis"],
-        ownership: "Designed architecture. Wrote every line.",
+        ownership: "Sole architect. Every layer, every line.",
     },
     {
         name: "TrustSystem",
-        tagline: "Patent-backed identity verification",
-        problem: "Platforms needed fraud detection that doesn't destroy UX.",
-        solution: "Multi-modal verification with vector similarity search.",
+        tagline: "Multi-modal identity verification",
+        problem: "Fraud detection systems that degrade user experience are not adopted.",
+        solution: "Vector similarity search for identity matching with minimal friction.",
         depth: [
-            "Real-time fraud detection pipelines and identity workflows",
-            "pgvector + Sentence Transformers for identity matching",
-            "Deployed as 4 robust Django apps with 12+ models and 18+ APIs",
+            "Real-time fraud detection pipelines with configurable thresholds",
+            "pgvector + Sentence Transformers for semantic identity matching",
+            "4 Django applications, 12+ models, 18+ API endpoints",
         ],
         metrics: {
             value: "Patent Published",
             label: "#202511094809",
         },
         stack: ["Django REST Framework", "PostgreSQL", "pgvector", "Redis"],
-        ownership: "Sole architect. Research to implementation.",
+        ownership: "Research through implementation. Single owner.",
     },
     {
         name: "DemoForge",
-        tagline: "Automated website demo generator",
-        problem: "Manual recording of platform demos is inconsistent and non-deterministic.",
-        solution: "Playwright-based browser automation with Docker worker isolation.",
+        tagline: "Deterministic browser demo automation",
+        problem: "Manual demo recording is inconsistent and does not scale.",
+        solution: "Playwright automation with Docker isolation and video processing pipeline.",
         depth: [
-            "Playwright-based deterministic interaction recording",
-            "Redis-backed job queue for concurrent rendering",
-            "WebM-to-MP4 video processing pipeline using FFmpeg"
+            "Deterministic browser interaction recording via Playwright",
+            "Redis-backed job queue for concurrent render workers",
+            "WebM-to-MP4 transcoding pipeline using FFmpeg"
         ],
         metrics: {
             value: "Automated",
             label: "Browser Demos",
         },
         stack: ["Node.js", "Playwright", "Docker", "FFmpeg", "Redis"],
-        ownership: "End-to-end architecture and pipeline integration.",
+        ownership: "Architecture through pipeline integration.",
     },
     {
         name: "MemeTrends",
-        tagline: "Real-time analytics engine",
-        problem: "Viral content tracking requires recency-aware scoring.",
-        solution: "Redis leaderboards powered by Celery-based time-decayed scoring.",
+        tagline: "Time-decayed leaderboard engine",
+        problem: "Viral content tracking requires recency-aware scoring at sub-second latency.",
+        solution: "Redis sorted sets with Celery-computed time-decay scoring functions.",
         depth: [
-            "API-only backend mapped to a JWT authentication flow",
-            "Celery background computation for score decay algorithms",
+            "JWT-authenticated API-only backend",
+            "Background score decay computation via Celery workers",
             "Redis sorted sets for O(log N) leaderboard operations",
         ],
         metrics: {
@@ -94,77 +94,77 @@ export const projects = [
             label: "Leaderboard updates",
         },
         stack: ["Django REST Framework", "Redis", "Celery", "PostgreSQL"],
-        ownership: "Algorithm design to deployment.",
+        ownership: "Algorithm design through deployment.",
     },
 ];
 
-// Philosophy — statements, not explanations
+// Philosophy — structured principles
 export const philosophy = {
-    intro: "The contract between chaos and reliability.",
+    intro: "Reliability is not an afterthought. It is the architecture.",
     pillars: [
         {
             title: "Async-First",
-            description: "Long tasks go to queues. Celery + Redis.",
+            description: "Long-running operations go to queues. Response times stay predictable.",
         },
         {
             title: "230+ Tests",
-            description: "If it's not tested, it's not shipped.",
+            description: "Untested code is unfinished code. Coverage is a deployment requirement.",
         },
         {
             title: "Horizontal Scale",
-            description: "Stateless services. Design for replicas from day one.",
+            description: "Stateless services. Designed for replicas from day one.",
         },
         {
             title: "Observe Everything",
-            description: "Structured logging. Debug production without guessing.",
+            description: "Structured logging. Production issues are diagnosed, not guessed at.",
         },
     ],
-    credo: "Scared to deploy on Friday? Architecture problem.",
+    credo: "If deploying on Friday requires courage, the architecture needs revision.",
 };
 
-// Eras — not bullet points
+// Experience record
 export const eras = [
     {
-        name: "The Contract Era",
+        name: "Contract Work",
         title: "Freelance Backend Developer",
-        company: "Freelance",
+        company: "Independent",
         period: "Oct 2025 – Jan 2026",
-        narrative: "Full ownership. Architecture to deployment.",
+        narrative: "Full ownership. Architecture through deployment.",
         highlights: [
-            "Scalable backend architecture from scratch",
-            "40+ REST APIs heavily integrating RBAC",
-            "Geospatial queries via PostGIS",
-            "Redis caching & Celery + RabbitMQ workflows",
-            "Targeted performance tuning and automated testing",
+            "Backend architecture from requirements to production",
+            "40+ REST APIs with role-based access control",
+            "PostGIS geospatial query integration",
+            "Redis caching and Celery + RabbitMQ async workflows",
+            "Performance tuning and automated test coverage",
         ],
     },
     {
-        name: "The Internship Arc",
+        name: "Internship",
         title: "Python Developer",
         company: "EverythingAboutAI",
         period: "Jul – Aug 2025",
-        narrative: "FastAPI. Automation. Production exposure.",
+        narrative: "FastAPI services. Automation pipelines. Production exposure.",
         highlights: [
             "FastAPI automation services",
             "Make.com pipeline integrations",
-            "Production QA",
+            "Production QA and deployment processes",
         ],
     },
     {
-        name: "The Community Chapter",
+        name: "Community",
         title: "Core Team Lead",
         company: "Elixir Tech Community",
         period: "Ongoing",
-        narrative: "5000+ members. Workshops. Mentorship.",
+        narrative: "5000+ members. Technical workshops. Mentorship.",
         highlights: [
-            "Technical community of 5000+",
-            "Workshops and hackathons",
+            "Technical community leadership, 5000+ members",
+            "Workshop facilitation and hackathon coordination",
             "GFG ABESEC Technical Coordinator",
         ],
     },
 ];
 
-// Proof — metrics as punchlines
+// Credentials
 export const proof = {
     patent: {
         title: "Multi-Modal Identity Verification System",
@@ -185,9 +185,9 @@ export const proof = {
     },
 };
 
-// Close — no begging
+// Contact
 export const closing = {
-    statement: "Open to backend engineering roles.",
+    statement: "Open to backend engineering roles where reliability matters.",
     links: [
         { label: "GitHub", href: "https://github.com/hey-granth", icon: "github" },
         { label: "LinkedIn", href: "https://linkedin.com/in/granth-agarwal", icon: "linkedin" },
@@ -198,9 +198,9 @@ export const closing = {
 // Navigation
 export const navLinks = [
     { name: "Work", href: "#work" },
-    { name: "Philosophy", href: "#philosophy" },
-    { name: "Eras", href: "#eras" },
+    { name: "Approach", href: "#philosophy" },
+    { name: "Record", href: "#eras" },
     { name: "Credentials", href: "#credentials" },
     { name: "Contact", href: "#contact" },
-    { name: "Blog", href: "/blog", external: true },
+    { name: "Writing", href: "/blog", external: true },
 ];

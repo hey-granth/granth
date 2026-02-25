@@ -77,7 +77,7 @@ const Footer = () => {
                             <span className="footer-identity-dot">.</span>
                         </a>
                         <p className="footer-tagline">
-                            Backend engineering. Systems that scale. Production-grade reliability.
+                            Backend systems. Designed for load. Built to last.
                         </p>
                     </div>
 
@@ -152,11 +152,11 @@ const Footer = () => {
                 {/* Bottom bar */}
                 <div className="flex flex-col md:flex-row items-center justify-between gap-3 pt-5">
                     <p className="footer-copyright">
-                        © {year} {personalInfo.name}. Built with precision.
+                        © {year} {personalInfo.name}
                     </p>
                     <div className="footer-status">
                         <span className="footer-status-dot" />
-                        <span>Available for opportunities</span>
+                        <span>Available for engineering roles</span>
                     </div>
                 </div>
             </div>

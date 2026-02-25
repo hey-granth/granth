@@ -1,10 +1,9 @@
-import { useState, useEffect, useRef, useMemo } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { navLinks, personalInfo } from '../../data/content';
 
 const ease = [0.4, 0, 0.2, 1];
-const EXPAND_LETTERS = ['R', 'A', 'N', 'T', 'H'];
 
 const Navbar = () => {
     const [isVisible, setIsVisible] = useState(true);
@@ -106,46 +105,50 @@ const Navbar = () => {
                 }}
             >
                 <div className="flex items-center justify-between">
-                    {/* Logo — serif with meta reveal */}
+                    {/* Logo — clean morph (G → GRANTH) */}
                     <Link
                         to="/"
-                        className="font-bold text-xl flex items-baseline"
+                        className="font-bold text-xl"
                         style={{
                             fontFamily: 'var(--font-serif)',
-                            color: isLogoHovered ? 'var(--color-plum)' : 'var(--color-text-primary)',
-                            letterSpacing: isLogoHovered ? '0.03em' : `${-0.02 * scrollDepth}em`,
-                            transition: 'color 0.2s cubic-bezier(0.4,0,0.2,1), letter-spacing 0.3s cubic-bezier(0.4,0,0.2,1)',
                             textDecoration: 'none',
+                            position: 'relative',
+                            display: 'inline-block',
+                            width: '5.5rem',
+                            height: '1.5em',
                         }}
                         onMouseEnter={() => setIsLogoHovered(true)}
                         onMouseLeave={() => setIsLogoHovered(false)}
                     >
-                        <span>G</span>
-                        <span style={{ color: 'var(--color-plum)' }}>.</span>
-                        {/* Expanding letters */}
+                        {/* Short state: G */}
                         <span
                             style={{
-                                display: 'inline-flex',
-                                overflow: 'hidden',
-                                maxWidth: isLogoHovered ? '120px' : '0px',
-                                transition: 'max-width 0.35s cubic-bezier(0.4,0,0.2,1)',
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                opacity: isLogoHovered ? 0 : 1,
+                                transform: isLogoHovered ? 'translateY(-4px)' : 'translateY(0)',
+                                transition: 'opacity 0.25s cubic-bezier(0.4,0,0.2,1), transform 0.25s cubic-bezier(0.4,0,0.2,1)',
+                                color: 'var(--color-text-primary)',
                             }}
                         >
-                            {EXPAND_LETTERS.map((letter, i) => (
-                                <span
-                                    key={letter}
-                                    style={{
-                                        display: 'inline-block',
-                                        opacity: isLogoHovered ? 1 : 0,
-                                        transform: isLogoHovered ? 'translateY(0)' : 'translateY(4px)',
-                                        transition: `opacity 0.2s cubic-bezier(0.4,0,0.2,1) ${i * 40}ms, transform 0.2s cubic-bezier(0.4,0,0.2,1) ${i * 40}ms`,
-                                        fontSize: '0.75em',
-                                        letterSpacing: '0.04em',
-                                    }}
-                                >
-                                    {letter}
-                                </span>
-                            ))}
+                            G
+                        </span>
+                        {/* Full state: GRANTH */}
+                        <span
+                            style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                opacity: isLogoHovered ? 1 : 0,
+                                transform: isLogoHovered ? 'translateY(0)' : 'translateY(4px)',
+                                letterSpacing: isLogoHovered ? '0.02em' : '0.12em',
+                                transition: 'opacity 0.25s cubic-bezier(0.4,0,0.2,1), transform 0.25s cubic-bezier(0.4,0,0.2,1), letter-spacing 0.25s cubic-bezier(0.4,0,0.2,1)',
+                                color: 'var(--color-plum)',
+                                whiteSpace: 'nowrap',
+                            }}
+                        >
+                            GRANTH
                         </span>
                     </Link>
 

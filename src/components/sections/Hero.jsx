@@ -109,7 +109,7 @@ const Hero = () => {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, ease }}
                         >
-                            Backend Architecture · Scale · Ownership
+                            Systems Design · Reliability · Ownership
                         </motion.p>
 
                         {/* H1 — Large serif name */}

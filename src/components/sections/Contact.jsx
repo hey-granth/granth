@@ -77,7 +77,7 @@ const Contact = () => {
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.7, ease, delay: 0.1 }}
                 >
-                    Backend engineering. Production systems. Scale problems.
+                    If you are building something that requires stability at scale, we should talk.
                 </motion.h2>
 
                 {/* Secondary context */}
@@ -87,7 +87,7 @@ const Contact = () => {
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.6, ease, delay: 0.2 }}
                 >
-                    Interested in systems work, high-load backends, or technical conversations.
+                    Open to systems work, high-load backends, and technical collaboration.
                 </motion.p>
 
                 {/* Contact actions */}
