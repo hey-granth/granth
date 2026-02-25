@@ -77,13 +77,27 @@ const Navbar = () => {
 
     return (
         <motion.header
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'nav-light' : 'bg-transparent'}`}
+            className="fixed top-0 left-0 right-0 z-50"
             initial={{ y: -100, opacity: 0 }}
             animate={{ y: isVisible ? 0 : -100, opacity: isVisible ? 1 : 0 }}
             transition={{ duration: 0.4, ease }}
+            style={{ pointerEvents: isVisible ? 'auto' : 'none' }}
         >
-            <nav className="section-container">
-                <div className="flex items-center justify-between h-16">
+            <nav
+                className="transition-all duration-300"
+                style={{
+                    maxWidth: '1100px',
+                    margin: '20px auto 0',
+                    padding: '14px 28px',
+                    borderRadius: '999px',
+                    background: 'linear-gradient(to bottom, rgba(255,255,255,0.45), rgba(255,255,255,0.18))',
+                    backdropFilter: 'blur(16px) saturate(120%)',
+                    WebkitBackdropFilter: 'blur(16px) saturate(120%)',
+                    border: '1px solid rgba(255,255,255,0.35)',
+                    boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.6), 0 15px 40px rgba(120,100,200,0.18)',
+                }}
+            >
+                <div className="flex items-center justify-between">
                     {/* Logo — serif */}
                     <Link
                         to="/"
@@ -99,13 +113,20 @@ const Navbar = () => {
                             const sectionId = link.href.replace('#', '');
                             const isActive = link.external ? location.pathname.startsWith('/blog') : activeSection === sectionId;
 
-                            const commonClasses = `px-3 py-2 text-sm tracking-wider transition-colors ${isActive ? 'text-plum font-medium' : 'text-text-secondary hover:text-text-primary'
+                            const commonClasses = `px-3 py-2 text-sm tracking-wider transition-colors duration-200 ${isActive ? 'text-plum font-medium' : ''
                                 }`;
+
+                            const linkStyle = {
+                                fontFamily: 'var(--font-sans)',
+                                letterSpacing: '0.08em',
+                                textTransform: 'uppercase',
+                                fontSize: '0.8125rem',
+                                color: isActive ? 'var(--color-plum)' : 'rgba(40,30,70,0.85)',
+                            };
 
                             if (link.external) {
                                 return (
-                                    <Link key={link.name} to={link.href} className={commonClasses}
-                                        style={{ fontFamily: 'var(--font-sans)', letterSpacing: '0.08em', textTransform: 'uppercase', fontSize: '0.8125rem' }}>
+                                    <Link key={link.name} to={link.href} className={commonClasses} style={linkStyle}>
                                         {link.name}
                                     </Link>
                                 );
@@ -116,8 +137,10 @@ const Navbar = () => {
                                     key={link.name}
                                     href={link.href}
                                     className={commonClasses}
-                                    style={{ fontFamily: 'var(--font-sans)', letterSpacing: '0.08em', textTransform: 'uppercase', fontSize: '0.8125rem' }}
+                                    style={linkStyle}
                                     onClick={(e) => handleSectionClick(e, link.href)}
+                                    onMouseEnter={(e) => { if (!isActive) e.target.style.color = '#7E64E8'; }}
+                                    onMouseLeave={(e) => { if (!isActive) e.target.style.color = 'rgba(40,30,70,0.85)'; }}
                                 >
                                     {link.name}
                                 </a>
@@ -127,9 +150,10 @@ const Navbar = () => {
 
                     {/* Mobile menu button */}
                     <button
-                        className="md:hidden p-2 text-text-secondary hover:text-text-primary"
+                        className="md:hidden p-2"
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                         aria-label="Toggle menu"
+                        style={{ color: 'rgba(40,30,70,0.85)' }}
                     >
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                             {isMobileMenuOpen ? (
@@ -145,20 +169,25 @@ const Navbar = () => {
                 <AnimatePresence>
                     {isMobileMenuOpen && (
                         <motion.div
-                            className="md:hidden border-t relative z-50"
-                            style={{ background: 'rgba(250, 247, 242, 0.98)', backdropFilter: 'blur(12px)' }}
+                            className="md:hidden mt-3"
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: 'auto' }}
                             exit={{ opacity: 0, height: 0 }}
                             transition={{ duration: 0.2 }}
                         >
-                            <div className="py-4 space-y-1 relative z-50">
+                            <div className="py-2 space-y-1" style={{ borderTop: '1px solid rgba(255,255,255,0.3)' }}>
                                 {navLinks.map((link) => {
                                     const sectionId = link.href.replace('#', '');
                                     const isActive = link.external ? location.pathname.startsWith('/blog') : activeSection === sectionId;
 
-                                    const mobileClasses = `block px-4 py-3 text-base uppercase tracking-wider transition-colors cursor-pointer relative z-50 ${isActive ? 'text-plum font-medium' : 'text-text-secondary hover:text-text-primary'
+                                    const mobileClasses = `block px-4 py-3 text-base uppercase tracking-wider transition-colors duration-200 cursor-pointer ${isActive ? 'font-medium' : ''
                                         }`;
+
+                                    const mobileStyle = {
+                                        fontFamily: 'var(--font-sans)',
+                                        letterSpacing: '0.08em',
+                                        color: isActive ? 'var(--color-plum)' : 'rgba(40,30,70,0.85)',
+                                    };
 
                                     if (link.external) {
                                         return (
@@ -166,7 +195,7 @@ const Navbar = () => {
                                                 key={link.name}
                                                 to={link.href}
                                                 className={mobileClasses}
-                                                style={{ fontFamily: 'var(--font-sans)', letterSpacing: '0.08em' }}
+                                                style={mobileStyle}
                                                 onClick={() => setIsMobileMenuOpen(false)}
                                             >
                                                 {link.name}
@@ -179,7 +208,7 @@ const Navbar = () => {
                                             key={link.name}
                                             href={link.href}
                                             className={mobileClasses}
-                                            style={{ fontFamily: 'var(--font-sans)', letterSpacing: '0.08em' }}
+                                            style={mobileStyle}
                                             onClick={(e) => handleSectionClick(e, link.href)}
                                         >
                                             {link.name}
