@@ -27,12 +27,22 @@ const Footer = () => {
     const year = new Date().getFullYear();
 
     return (
-        <footer className="relative overflow-hidden">
+        <footer
+            className="relative overflow-hidden"
+            style={{
+                borderTop: '1px solid rgba(160, 140, 220, 0.25)',
+                boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.5)',
+            }}
+        >
             {/* Gradient transition into footer */}
             <div
                 className="absolute inset-0 pointer-events-none"
                 style={{
                     background: `
+                        linear-gradient(to bottom,
+                            rgba(199,184,255,0.12),
+                            rgba(199,184,255,0.18)
+                        ),
                         radial-gradient(ellipse 100% 50% at 50% 0%,
                             rgba(232, 224, 240, 0.2) 0%,
                             transparent 40%
@@ -106,7 +116,8 @@ const Footer = () => {
                                 href={personalInfo.github}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="footer-social-link"
+                                className="footer-social-link social-tooltip-wrap"
+                                data-tooltip="GitHub Profile"
                                 aria-label="GitHub"
                             >
                                 {icons.github}
@@ -115,7 +126,8 @@ const Footer = () => {
                                 href={personalInfo.linkedin}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="footer-social-link"
+                                className="footer-social-link social-tooltip-wrap"
+                                data-tooltip="LinkedIn"
                                 aria-label="LinkedIn"
                             >
                                 {icons.linkedin}
@@ -124,14 +136,16 @@ const Footer = () => {
                                 href={personalInfo.twitter}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="footer-social-link"
+                                className="footer-social-link social-tooltip-wrap"
+                                data-tooltip="X / Twitter"
                                 aria-label="X (Twitter)"
                             >
                                 {icons.twitter}
                             </a>
                             <a
                                 href={`mailto:${personalInfo.email}`}
-                                className="footer-social-link"
+                                className="footer-social-link social-tooltip-wrap"
+                                data-tooltip="Email"
                                 aria-label="Email"
                             >
                                 {icons.email}

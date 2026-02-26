@@ -167,7 +167,8 @@ const Hero = () => {
                                 href={personalInfo.github}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="link-quiet"
+                                className="link-quiet social-tooltip-wrap"
+                                data-tooltip="GitHub Profile"
                                 aria-label="GitHub"
                             >
                                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -178,7 +179,8 @@ const Hero = () => {
                                 href={personalInfo.linkedin}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="link-quiet"
+                                className="link-quiet social-tooltip-wrap"
+                                data-tooltip="LinkedIn"
                                 aria-label="LinkedIn"
                             >
                                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -187,7 +189,8 @@ const Hero = () => {
                             </a>
                             <a
                                 href={`mailto:${personalInfo.email}`}
-                                className="link-quiet"
+                                className="link-quiet social-tooltip-wrap"
+                                data-tooltip="Email"
                                 aria-label="Email"
                             >
                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>

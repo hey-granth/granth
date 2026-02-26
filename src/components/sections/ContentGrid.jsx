@@ -43,16 +43,16 @@ const ContentGrid = () => {
                                 className="text-xs font-semibold tracking-[0.2em] uppercase mb-6"
                                 style={{
                                     fontFamily: 'var(--font-sans)',
-                                    color: 'var(--color-text-muted)',
+                                    color: 'var(--color-text-secondary)',
                                 }}
                             >
                                 {col.title}
                             </h3>
-                            <ul className="space-y-3">
+                            <ul className="space-y-4">
                                 {col.items.map((item) => (
                                     <li
                                         key={item}
-                                        className="text-base"
+                                        className="text-base content-grid-item"
                                         style={{
                                             fontFamily: 'var(--font-serif)',
                                             color: 'var(--color-text-primary)',

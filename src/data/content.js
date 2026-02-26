@@ -44,6 +44,7 @@ export const projects = [
         },
         stack: ["Django REST Framework", "React", "PostgreSQL", "PostGIS", "Celery", "Redis"],
         ownership: "Sole architect. Every layer, every line.",
+        github: "https://github.com/hey-granth/stockway",
     },
     {
         name: "TrustSystem",
@@ -61,6 +62,7 @@ export const projects = [
         },
         stack: ["Django REST Framework", "PostgreSQL", "pgvector", "Redis"],
         ownership: "Research through implementation. Single owner.",
+        github: "https://github.com/hey-granth/TrustSystem",
     },
     {
         name: "DemoForge",
@@ -78,6 +80,7 @@ export const projects = [
         },
         stack: ["Node.js", "Playwright", "Docker", "FFmpeg", "Redis"],
         ownership: "Architecture through pipeline integration.",
+        github: "https://github.com/hey-granth/DemoForge",
     },
     {
         name: "MemeTrends",
@@ -95,6 +98,7 @@ export const projects = [
         },
         stack: ["Django REST Framework", "Redis", "Celery", "PostgreSQL"],
         ownership: "Algorithm design through deployment.",
+        github: "https://github.com/hey-granth/memetrends",
     },
 ];
 

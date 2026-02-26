@@ -25,6 +25,30 @@ const ProjectCard = ({ project, index }) => {
                     <p className="text-liner mt-2">
                         {project.tagline}
                     </p>
+                    {(project.github || project.live) && (
+                        <div className="project-actions">
+                            {project.github && (
+                                <a
+                                    href={project.github}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="project-action-link"
+                                >
+                                    GitHub →
+                                </a>
+                            )}
+                            {project.live && (
+                                <a
+                                    href={project.live}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="project-action-link"
+                                >
+                                    Live →
+                                </a>
+                            )}
+                        </div>
+                    )}
                 </div>
                 <div className="text-right">
                     <div className="metric-value">

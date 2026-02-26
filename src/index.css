@@ -679,6 +679,111 @@
   }
 
   /* ═══════════════════════════════════════════════════════════════
+     TOOLTIPS — Minimal, dark, CSS-only
+  ═══════════════════════════════════════════════════════════════ */
+
+  .social-tooltip-wrap {
+    position: relative;
+    display: inline-flex;
+  }
+
+  .social-tooltip-wrap::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    background: rgba(40, 30, 70, 0.9);
+    color: #FFFFFF;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 400;
+    padding: 6px 10px;
+    border-radius: 6px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 180ms ease, transform 180ms ease;
+    z-index: 50;
+  }
+
+  .social-tooltip-wrap::before {
+    content: '';
+    position: absolute;
+    bottom: calc(100% + 4px);
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    border: 5px solid transparent;
+    border-top-color: rgba(40, 30, 70, 0.9);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 180ms ease, transform 180ms ease;
+    z-index: 50;
+  }
+
+  .social-tooltip-wrap:hover::after,
+  .social-tooltip-wrap:hover::before {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     PROJECT ACTION LINKS — Restrained inline links
+  ═══════════════════════════════════════════════════════════════ */
+
+  .project-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-top: 0.5rem;
+  }
+
+  .project-action-link {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 500;
+    color: #8F7DE8;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    position: relative;
+    transition: color 150ms ease;
+  }
+
+  .project-action-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: #7B68D4;
+    transition: width 200ms ease;
+  }
+
+  .project-action-link:hover {
+    color: #7B68D4;
+  }
+
+  .project-action-link:hover::after {
+    width: 100%;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     CONTENT GRID ITEMS — Hover micro-interaction
+  ═══════════════════════════════════════════════════════════════ */
+
+  .content-grid-item {
+    transition: color 150ms ease, transform 150ms ease;
+    cursor: default;
+  }
+
+  .content-grid-item:hover {
+    color: var(--color-plum) !important;
+    transform: translateX(2px);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
      CTA BUTTON — Primary editorial
   ═══════════════════════════════════════════════════════════════ */
 
@@ -904,6 +1009,112 @@ button,
 
   .prose h3 {
     font-size: 1.25rem;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE MENU ITEM HOVER
+═══════════════════════════════════════════════════════════════ */
+
+.mobile-menu-item:hover,
+.mobile-menu-item:active {
+  color: var(--color-plum) !important;
+  transform: translateX(2px);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE RESPONSIVE SYSTEM
+═══════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+
+  /* ── Navbar pill adjustment ── */
+  .mobile-nav-container {
+    margin: 10px 12px 0 !important;
+    padding: 12px 20px !important;
+    border-radius: 999px !important;
+  }
+
+  /* ── Hero — centered, reduced ── */
+  #home {
+    min-height: 85vh !important;
+    min-height: 85dvh !important;
+  }
+
+  #home .section-container {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  #home .flex.flex-col.md\:flex-row {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  #home .max-w-2xl {
+    max-width: 100%;
+  }
+
+  .text-name {
+    font-size: clamp(3rem, 10vw, 5rem);
+    line-height: 0.95;
+  }
+
+  .text-display-md {
+    font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+    line-height: 1.35;
+  }
+
+  /* CTA + social — center on mobile */
+  #home .flex.flex-col.items-start {
+    align-items: center;
+  }
+
+  /* ── Section padding — tighter ── */
+  .section-padding {
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+  }
+
+  /* ── Footer — stacked, centered ── */
+  footer .grid {
+    text-align: center;
+  }
+
+  footer .md\:col-span-3 {
+    text-align: center !important;
+  }
+
+  footer .md\:text-right {
+    text-align: center !important;
+  }
+
+  footer .flex.items-center.gap-3 {
+    justify-content: center;
+  }
+
+  footer .footer-tagline {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .text-display-footer {
+    font-size: clamp(3.5rem, 12vw, 6rem);
+  }
+
+  /* ── Project cards — tighter padding ── */
+  .card {
+    padding: 1.5rem !important;
+  }
+
+  .metric-value {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+  }
+
+  /* ── Project actions — wrap nicely ── */
+  .project-actions {
+    justify-content: flex-start;
   }
 }
 
