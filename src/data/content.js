@@ -183,9 +183,9 @@ export const proof = {
         { value: "1", label: "Patent" },
     ],
     stack: {
-        core: ["Python", "Django REST Framework", "FastAPI"],
-        data: ["PostgreSQL", "pgvector", "Redis", "Celery"],
-        infra: ["Linux", "GCP", "RabbitMQ", "Git"],
+        core: ["Python", "Go", "JavaScript", "Dart", "Django", "DRF", "FastAPI", "Flask", "SQLAlchemy", "Pydantic", "Celery", "Docker", "Nginx", "pytest"],
+        data: ["PostgreSQL", "MySQL", "SQLite", "pgvector", "Redis", "RabbitMQ", "Supabase"],
+        infra: ["GCP", "Linux", "Git", "Postman"],
     },
 };
 

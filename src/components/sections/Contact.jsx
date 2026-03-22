@@ -1,6 +1,7 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { closing, personalInfo } from '../../data/content';
+import ExternalLinkPreview from '../ui/ExternalLinkPreview';
 
 const ease = [0.16, 1, 0.3, 1];
 
@@ -40,7 +41,7 @@ const Contact = () => {
         <section
             id="contact"
             ref={ref}
-            className="py-24 md:py-32 relative overflow-hidden"
+            className="py-16 md:py-20 relative overflow-hidden"
         >
             {/* Soft gradient wash */}
             <div
@@ -97,33 +98,30 @@ const Contact = () => {
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.6, ease, delay: 0.3 }}
                 >
-                    <a
-                        href={personalInfo.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                    <ExternalLinkPreview
+                        url={personalInfo.github}
+                        isStatic={false}
                         className="contact-btn"
                     >
                         {icons.github}
                         GitHub
-                    </a>
-                    <a
-                        href={personalInfo.linkedin}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                    </ExternalLinkPreview>
+                    <ExternalLinkPreview
+                        url={personalInfo.linkedin}
+                        isStatic={false}
                         className="contact-btn"
                     >
                         {icons.linkedin}
                         LinkedIn
-                    </a>
-                    <a
-                        href={personalInfo.twitter}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                    </ExternalLinkPreview>
+                    <ExternalLinkPreview
+                        url={personalInfo.twitter}
+                        isStatic={false}
                         className="contact-btn"
                     >
                         {icons.twitter}
                         X / Twitter
-                    </a>
+                    </ExternalLinkPreview>
                     <a
                         href={`mailto:${personalInfo.email}`}
                         className="contact-btn"

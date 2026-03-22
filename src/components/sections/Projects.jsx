@@ -1,6 +1,7 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { projects, sectionTitles } from '../../data/content';
+import ExternalLinkPreview from '../ui/ExternalLinkPreview';
 
 const ease = [0.16, 1, 0.3, 1];
 
@@ -28,24 +29,22 @@ const ProjectCard = ({ project, index }) => {
                     {(project.github || project.live) && (
                         <div className="project-actions">
                             {project.github && (
-                                <a
-                                    href={project.github}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
+                                <ExternalLinkPreview
+                                    url={project.github}
+                                    isStatic={false}
                                     className="project-action-link"
                                 >
                                     GitHub →
-                                </a>
+                                </ExternalLinkPreview>
                             )}
                             {project.live && (
-                                <a
-                                    href={project.live}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
+                                <ExternalLinkPreview
+                                    url={project.live}
+                                    isStatic={false}
                                     className="project-action-link"
                                 >
                                     Live →
-                                </a>
+                                </ExternalLinkPreview>
                             )}
                         </div>
                     )}
@@ -121,7 +120,7 @@ const Projects = () => {
                 </motion.header>
 
                 {/* Projects */}
-                <div className="space-y-8">
+                <div className="projects-grid">
                     {projects.map((project, index) => (
                         <ProjectCard key={project.name} project={project} index={index} />
                     ))}

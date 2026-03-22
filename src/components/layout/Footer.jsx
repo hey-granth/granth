@@ -1,4 +1,5 @@
 import { personalInfo, navLinks } from '../../data/content';
+import ExternalLinkPreview from '../ui/ExternalLinkPreview';
 
 const icons = {
     github: (
@@ -112,36 +113,33 @@ const Footer = () => {
                     <div className="md:col-span-3 md:text-right">
                         <h4 className="footer-label md:text-right">Connect</h4>
                         <div className="flex items-center gap-3 md:justify-end mb-3">
-                            <a
-                                href={personalInfo.github}
-                                target="_blank"
-                                rel="noopener noreferrer"
+                            <ExternalLinkPreview
+                                url={personalInfo.github}
+                                isStatic={false}
                                 className="footer-social-link social-tooltip-wrap"
                                 data-tooltip="GitHub Profile"
                                 aria-label="GitHub"
                             >
                                 {icons.github}
-                            </a>
-                            <a
-                                href={personalInfo.linkedin}
-                                target="_blank"
-                                rel="noopener noreferrer"
+                            </ExternalLinkPreview>
+                            <ExternalLinkPreview
+                                url={personalInfo.linkedin}
+                                isStatic={false}
                                 className="footer-social-link social-tooltip-wrap"
                                 data-tooltip="LinkedIn"
                                 aria-label="LinkedIn"
                             >
                                 {icons.linkedin}
-                            </a>
-                            <a
-                                href={personalInfo.twitter}
-                                target="_blank"
-                                rel="noopener noreferrer"
+                            </ExternalLinkPreview>
+                            <ExternalLinkPreview
+                                url={personalInfo.twitter}
+                                isStatic={false}
                                 className="footer-social-link social-tooltip-wrap"
                                 data-tooltip="X / Twitter"
                                 aria-label="X (Twitter)"
                             >
                                 {icons.twitter}
-                            </a>
+                            </ExternalLinkPreview>
                             <a
                                 href={`mailto:${personalInfo.email}`}
                                 className="footer-social-link social-tooltip-wrap"

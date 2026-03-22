@@ -1,27 +1,101 @@
 import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { Fragment, useRef } from 'react';
 import { proof, sectionTitles } from '../../data/content';
+import ExternalLinkPreview from '../ui/ExternalLinkPreview';
 
 const ease = [0.16, 1, 0.3, 1];
 
-// Documentation links for each tool
-const techDocs = {
-    Python: 'https://docs.python.org/3/',
-    Django: 'https://docs.djangoproject.com/',
-    FastAPI: 'https://fastapi.tiangolo.com/',
-    PostgreSQL: 'https://www.postgresql.org/docs/',
-    Redis: 'https://redis.io/docs/',
-    Celery: 'https://docs.celeryq.dev/',
-    Linux: 'https://www.kernel.org/doc/',
-    GCP: 'https://cloud.google.com/docs',
-    Git: 'https://git-scm.com/doc',
+const DEVICON_CDN = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons';
+
+const devicon = (name) => ({
+    src: `${DEVICON_CDN}/${name}/${name}-original.svg`,
+    fallbackSrc: `${DEVICON_CDN}/${name}/${name}-plain.svg`,
+});
+
+const techMeta = {
+    Python: { href: 'https://python.org', ...devicon('python') },
+    Go: { href: 'https://go.dev', ...devicon('go') },
+    JavaScript: { href: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript', ...devicon('javascript') },
+    Dart: { href: 'https://dart.dev', ...devicon('dart') },
+    Django: { href: 'https://djangoproject.com', ...devicon('django') },
+    DRF: {
+        href: 'https://django-rest-framework.org',
+        ...devicon('django'),
+        // subLabel: 'REST',
+    },
+    FastAPI: { href: 'https://fastapi.tiangolo.com', ...devicon('fastapi') },
+    Flask: { href: 'https://flask.palletsprojects.com', ...devicon('flask') },
+    SQLAlchemy: { href: 'https://sqlalchemy.org', ...devicon('sqlalchemy') },
+    Pydantic: { href: 'https://docs.pydantic.dev', src: 'https://docs.pydantic.dev/latest/favicon.png' },
+    Celery: {
+        href: 'https://docs.celeryq.dev',
+        src: 'https://docs.celeryq.dev/en/stable/_static/celery_512.png',
+        fallbackSrc: 'https://raw.githubusercontent.com/celery/celery/main/docs/images/celery_128.png',
+    },
+    Docker: { href: 'https://docker.com', ...devicon('docker') },
+    Nginx: { href: 'https://nginx.org', ...devicon('nginx') },
+    pytest: {
+        href: 'https://pytest.org',
+        src: 'https://docs.pytest.org/en/stable/_static/pytest1.png',
+        fallbackSrc: 'https://docs.pytest.org/favicon.ico',
+    },
+    PostgreSQL: { href: 'https://postgresql.org', ...devicon('postgresql') },
+    MySQL: { href: 'https://mysql.com', ...devicon('mysql') },
+    SQLite: { href: 'https://sqlite.org', ...devicon('sqlite') },
+    pgvector: {
+        href: 'https://github.com/pgvector/pgvector',
+        ...devicon('postgresql'),
+    },
+    Redis: { href: 'https://redis.io', ...devicon('redis') },
+    RabbitMQ: { href: 'https://rabbitmq.com', src: 'https://www.rabbitmq.com/img/rabbitmq-logo.svg' },
+    Supabase: { href: 'https://supabase.com', src: 'https://supabase.com/favicon/favicon-32x32.png' },
+    GCP: { href: 'https://cloud.google.com', ...devicon('googlecloud') },
+    Linux: { href: 'https://kernel.org', ...devicon('linux') },
+    Git: { href: 'https://git-scm.com', ...devicon('git') },
+    Postman: {
+        href: 'https://postman.com',
+        src: 'https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg',
+        fallbackSrc: 'https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/postman-icon.svg',
+    },
+};
+
+const onIconError = (event) => {
+    const img = event.currentTarget;
+    const fallbackSrc = img.dataset.fallbackSrc;
+    const failureStep = Number(img.dataset.failureStep || '0');
+
+    if (failureStep === 0 && fallbackSrc && img.src !== fallbackSrc) {
+        img.dataset.failureStep = '1';
+        img.src = fallbackSrc;
+        return;
+    }
+
+    img.style.display = 'none';
+    img.onerror = null;
+
+    const textFallback = img.parentElement?.querySelector('.stack-tech-icon-fallback');
+    if (textFallback) {
+        textFallback.style.display = 'inline-flex';
+    }
 };
 
 // Renamed for editorial clarity — keep same data structure
 const stackZones = {
-    core: { label: 'CORE' },
-    data: { label: 'DATA' },
-    infra: { label: 'INFRA' },
+    core: {
+        label: 'CORE',
+        accent: '#7C6AF7',
+        accentSoft: 'rgba(124, 106, 247, 0.3)',
+    },
+    data: {
+        label: 'DATA',
+        accent: '#2D9CDB',
+        accentSoft: 'rgba(45, 156, 219, 0.3)',
+    },
+    infra: {
+        label: 'INFRA',
+        accent: '#27AE60',
+        accentSoft: 'rgba(39, 174, 96, 0.3)',
+    },
 };
 
 const Proof = () => {
@@ -31,7 +105,7 @@ const Proof = () => {
     const stackInView = useInView(stackRef, { once: true, margin: '-50px' });
 
     return (
-        <section id="credentials" ref={ref} className="section-padding relative">
+        <section id="credentials" ref={ref} className="section-padding section-padding--stack relative">
             {/* Subtle section wash */}
             <div
                 className="absolute inset-0 pointer-events-none"
@@ -109,56 +183,84 @@ const Proof = () => {
                         <div className="stack-anchor-line" />
                     </motion.div>
 
+                    <motion.p
+                        className="stack-descriptor"
+                        initial={{ opacity: 0, y: 6 }}
+                        animate={stackInView ? { opacity: 1, y: 0 } : {}}
+                        transition={{ duration: 0.5, ease, delay: 0.05 }}
+                    >
+                        The tools I reach for first.
+                    </motion.p>
+
                     <div className="stack-zones-symmetric">
                         {Object.entries(proof.stack).map(([category, techs], zoneIndex) => {
                             const zone = stackZones[category];
 
                             return (
-                                <motion.div
-                                    key={category}
-                                    className="stack-zone-symmetric"
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={stackInView ? { opacity: 1, y: 0 } : {}}
-                                    transition={{
-                                        duration: 0.6,
-                                        ease,
-                                        delay: 0.15 + zoneIndex * 0.1
-                                    }}
-                                >
-                                    <h4 className="stack-zone-label-symmetric">
-                                        {zone.label}
-                                    </h4>
+                                <Fragment key={category}>
+                                    <motion.div
+                                        className="stack-category-divider"
+                                        style={{
+                                            '--stack-accent': zone.accent,
+                                        }}
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={stackInView ? { opacity: 1, y: 0 } : {}}
+                                        transition={{
+                                            duration: 0.5,
+                                            ease,
+                                            delay: 0.12 + zoneIndex * 0.1,
+                                        }}
+                                    >
+                                        <span className="stack-category-divider-text">
+                                            {zone.label}
+                                        </span>
+                                        <span className="stack-category-divider-line" />
+                                    </motion.div>
 
-                                    <div className="stack-cluster-symmetric">
-                                        {techs.map((tech, techIndex) => (
-                                            <motion.a
-                                                key={tech}
-                                                href={techDocs[tech]}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
+                                    {techs.map((tech, techIndex) => (
+                                        <motion.div
+                                            key={tech}
+                                            initial={{ opacity: 0, scale: 0.95 }}
+                                            animate={stackInView ? { opacity: 1, scale: 1 } : {}}
+                                            transition={{
+                                                duration: 0.4,
+                                                ease,
+                                                delay: 0.2 + zoneIndex * 0.1 + techIndex * 0.05,
+                                            }}
+                                            style={{
+                                                '--stack-accent': zone.accent,
+                                                '--stack-accent-soft': zone.accentSoft,
+                                            }}
+                                        >
+                                            <ExternalLinkPreview
+                                                url={techMeta[tech]?.href}
+                                                isStatic={false}
                                                 className="stack-tech-link"
-                                                initial={{ opacity: 0, scale: 0.95 }}
-                                                animate={stackInView ? { opacity: 1, scale: 1 } : {}}
-                                                transition={{
-                                                    duration: 0.4,
-                                                    ease,
-                                                    delay: 0.25 + zoneIndex * 0.1 + techIndex * 0.06
-                                                }}
+                                                aria-label={`${tech} official website`}
                                             >
-                                                {tech}
-                                                <svg
-                                                    className="stack-tech-link-icon"
-                                                    viewBox="0 0 16 16"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    strokeWidth="1.5"
-                                                >
-                                                    <path d="M6.5 3.5h6m0 0v6m0-6L4 12" strokeLinecap="round" strokeLinejoin="round" />
-                                                </svg>
-                                            </motion.a>
-                                        ))}
-                                    </div>
-                                </motion.div>
+                                                <span className="stack-tech-icon-wrap">
+                                                    <img
+                                                        src={techMeta[tech]?.src}
+                                                        data-fallback-src={techMeta[tech]?.fallbackSrc || ''}
+                                                        alt={`${tech} logo`}
+                                                        className="stack-tech-icon"
+                                                        width={38}
+                                                        height={38}
+                                                        loading="lazy"
+                                                        onError={onIconError}
+                                                    />
+                                                    <span className="stack-tech-icon-fallback">
+                                                        {tech}
+                                                    </span>
+                                                </span>
+                                                <span className="stack-tech-label">{tech}</span>
+                                                {techMeta[tech]?.subLabel && (
+                                                    <span className="stack-tech-sub-label">{techMeta[tech].subLabel}</span>
+                                                )}
+                                            </ExternalLinkPreview>
+                                        </motion.div>
+                                    ))}
+                                </Fragment>
                             );
                         })}
                     </div>
