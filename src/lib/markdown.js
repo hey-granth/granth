@@ -1,4 +1,4 @@
-import matter from 'gray-matter';
+import fm from 'front-matter';
 
 const formatDate = (input) => new Date(input).toLocaleDateString('en-US', {
     year: 'numeric',
@@ -11,7 +11,9 @@ export const loadPosts = () => {
 
     return Object.entries(files)
         .map(([path, raw]) => {
-            const { data, content } = matter(raw);
+            const { attributes, body } = fm(raw);
+            const data = attributes || {};
+            const content = body;
             const slug = path.split('/').pop().replace('.md', '');
             return {
                 slug,
