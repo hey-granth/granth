@@ -7,7 +7,7 @@ export const personalInfo = {
     github: "https://github.com/hey-granth",
     linkedin: "https://linkedin.com/in/granth-agarwal",
     twitter: "https://x.com/heygranth",
-    resume: "/resume.pdf",
+    resume: "https://drive.google.com/file/d/1f9UI9PytDrNbUJp5ZuBRF00sSTy-La7S/view?usp=sharing",
 };
 
 // Hero
@@ -27,6 +27,24 @@ export const sectionTitles = {
 
 // Projects — context, constraint, decision, result
 export const projects = [
+    {
+        name: "codectx",
+        tagline: "Codebase context compiler",
+        problem: "Feeding raw repositories to AI agents wastes context on noise. Critical architecture is buried under tests, boilerplate, and lockfiles.",
+        solution: "AST-driven structured summaries ranked by dependency centrality and git signal, compressed to a hard token budget.",
+        depth: [
+            "Tree-sitter AST parsing across 9 languages with parallel ProcessPoolExecutor",
+            "rustworkx dependency graph — fan-in scoring, cycle detection, call path tracing",
+            "Percentile-based tier ranking — top 15% get structured summaries, rest get signatures or one-liners",
+        ],
+        metrics: {
+            value: "55–93%",
+            label: "token reduction",
+        },
+        stack: ["Python", "tree-sitter", "rustworkx", "tiktoken", "lancedb"],
+        ownership: "Designed, built, and maintained. Open source, MIT licensed.",
+        github: "https://github.com/hey-granth/codectx",
+    },
     {
         name: "Stockway",
         tagline: "Multi-tenant supply chain backend",
@@ -202,6 +220,7 @@ export const closing = {
 // Navigation
 export const navLinks = [
     { name: "Work", href: "#work" },
+    { name: "Projects", href: "/projects", external: true },
     { name: "Approach", href: "#philosophy" },
     { name: "Record", href: "#eras" },
     { name: "Credentials", href: "#credentials" },

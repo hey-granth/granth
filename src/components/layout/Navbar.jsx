@@ -167,7 +167,10 @@ const Navbar = () => {
                         <div className="hidden md:flex items-center gap-1">
                             {navLinks.map((link) => {
                                 const sectionId = link.href.replace('#', '');
-                                const isActive = link.external ? location.pathname.startsWith('/blog') : activeSection === sectionId;
+                                const isActive = link.external
+                                    ? (link.href === '/blog' && location.pathname.startsWith('/blog')) ||
+                                    (link.href === '/projects' && location.pathname === '/projects')
+                                    : activeSection === sectionId;
 
                                 const commonClasses = `px-3 py-2 text-sm tracking-wider transition-colors duration-200 ${isActive ? 'text-plum font-medium' : ''
                                     }`;
@@ -279,7 +282,8 @@ const Navbar = () => {
                             {navLinks.map((link) => {
                                 const sectionId = link.href.replace('#', '');
                                 const isActive = link.external
-                                    ? location.pathname.startsWith('/blog')
+                                    ? (link.href === '/blog' && location.pathname.startsWith('/blog')) ||
+                                    (link.href === '/projects' && location.pathname === '/projects')
                                     : activeSection === sectionId;
 
                                 const itemStyle = {

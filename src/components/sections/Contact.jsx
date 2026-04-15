@@ -131,7 +131,8 @@ const Contact = () => {
                     </a>
                     <a
                         href={personalInfo.resume}
-                        download="Granth_Agarwal_Resume.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="contact-btn"
                     >
                         {icons.download}
