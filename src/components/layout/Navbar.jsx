@@ -38,7 +38,7 @@ const Navbar = () => {
         }
 
         const handleScroll = () => {
-            const sectionIds = ['home', 'work', 'approach', 'record', 'credentials', 'contact'];
+            const sectionIds = ['home', 'approach', 'record', 'credentials', 'contact'];
 
             for (const sectionId of [...sectionIds].reverse()) {
                 const element = document.getElementById(sectionId);
@@ -202,7 +202,7 @@ const Navbar = () => {
                         </Link>
 
                         {/* Desktop nav */}
-                        <div className="hidden md:flex items-center gap-1">
+                        <div className="hidden md:flex items-center gap-2">
                             {navLinks.map((link) => renderNavLink(link))}
                         </div>
 

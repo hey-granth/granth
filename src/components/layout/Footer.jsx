@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { personalInfo, navLinks } from '../../data/content';
+import { personalInfo, footerLinks } from '../../data/content';
 import { getNavLinkTo } from '../../lib/navigation';
 import ExternalLinkPreview from '../ui/ExternalLinkPreview';
 
@@ -98,12 +98,12 @@ const Footer = () => {
                     <div className="md:col-span-4 md:pl-8">
                         <h4 className="footer-label">Navigate</h4>
                         <nav className="footer-nav">
-                            {navLinks.map((link, index) => (
+                            {footerLinks.map((link, index) => (
                                 <span key={link.name} className="flex items-center">
                                     <Link to={getNavLinkTo(link)} className="footer-nav-link">
                                         {link.name}
                                     </Link>
-                                    {index < navLinks.length - 1 && (
+                                    {index < footerLinks.length - 1 && (
                                         <span className="footer-nav-divider" />
                                     )}
                                 </span>

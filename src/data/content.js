@@ -18,7 +18,7 @@ export const hero = {
 
 // Section titles
 export const sectionTitles = {
-    work: "WORK",
+    projects: "PROJECTS",
     philosophy: "APPROACH",
     timeline: "RECORD",
     proof: "CREDENTIALS",
@@ -220,11 +220,15 @@ export const closing = {
 
 // Navigation
 export const navLinks = [
-    { name: "Work", type: "section", hash: "work" },
     { name: "Projects", type: "route", path: "/projects" },
     { name: "Approach", type: "section", hash: "approach" },
     { name: "Record", type: "section", hash: "record" },
     { name: "Credentials", type: "section", hash: "credentials" },
     { name: "Contact", type: "section", hash: "contact" },
     { name: "Writing", type: "route", path: "/writing", aliases: ["/blog"] },
+];
+
+export const footerLinks = [
+    ...navLinks,
+    { name: "Resume", type: "route", path: "/resume" },
 ];

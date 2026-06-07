@@ -104,7 +104,7 @@ const Projects = () => {
     const isInView = useInView(ref, { once: true, margin: '-100px' });
 
     return (
-        <section id="work" ref={ref} className="section-padding">
+        <section id="projects" ref={ref} className="section-padding">
             <div className="section-container">
                 {/* Header */}
                 <motion.header
@@ -113,7 +113,7 @@ const Projects = () => {
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.8, ease }}
                 >
-                    <span className="track-title">{sectionTitles.work}</span>
+                    <span className="track-title">{sectionTitles.projects}</span>
                     <h2 className="text-display-xl text-text-primary mt-4">
                         Shipped. Running. In production.
                     </h2>

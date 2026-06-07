@@ -18,10 +18,6 @@ const pathMatches = (pathname, path) => pathname === path || pathname.startsWith
 
 export const isNavLinkActive = (link, pathname, activeSection) => {
     if (link.type === 'section') {
-        if (pathname === '/projects' && link.hash === 'work') {
-            return true;
-        }
-
         return pathname === '/' && activeSection === link.hash;
     }
 

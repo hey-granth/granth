@@ -152,8 +152,8 @@ const Hero = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, ease, delay: 0.5 }}
                     >
-                        <a href="#work" className="cta-primary group">
-                            View Work
+                        <a href="/resume" className="cta-primary group">
+                            View Resume
                             <svg
                                 width="16" height="16" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" strokeWidth="2"

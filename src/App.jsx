@@ -24,6 +24,13 @@ const ScrollManager = () => {
     return null;
 };
 
+const ResumeRedirect = () => {
+    useLayoutEffect(() => {
+        window.location.replace("https://drive.google.com/file/d/1bh0ua0dD4cwWCKQMByde2S3jvlPpt36m/view?usp=sharing");
+    }, []);
+    return null;
+};
+
 function App() {
   return (
     <Router>
@@ -35,6 +42,8 @@ function App() {
         <Route path="/writing/:slug" element={<BlogPost />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:slug" element={<BlogPost />} />
+        <Route path="/resume" element={<ResumeRedirect />} />
+        <Route path="/resume/" element={<ResumeRedirect />} />
       </Routes>
     </Router>
   );
