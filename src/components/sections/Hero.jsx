@@ -147,20 +147,13 @@ const Hero = () => {
 
                     {/* Right — CTA + Social */}
                     <motion.div
-                        className="flex flex-col items-start md:items-end gap-8"
+                        className="flex flex-col items-start md:items-end gap-5 md:gap-6"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, ease, delay: 0.5 }}
                     >
                         <a href="/resume" className="cta-primary group">
                             View Resume
-                            <svg
-                                width="16" height="16" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" strokeWidth="2"
-                                className="cta-arrow"
-                            >
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                            </svg>
                         </a>
 
                         <div className="flex items-center gap-6">
