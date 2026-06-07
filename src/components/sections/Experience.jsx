@@ -58,7 +58,7 @@ const Experience = () => {
     const isInView = useInView(ref, { once: true, margin: '-100px' });
 
     return (
-        <section id="eras" ref={ref} className="section-padding">
+        <section id="record" ref={ref} className="section-padding">
             <div className="section-container">
                 {/* Header */}
                 <motion.header
@@ -69,7 +69,7 @@ const Experience = () => {
                 >
                     <span className="track-title">{sectionTitles.timeline}</span>
                     <h2 className="text-display-xl text-text-primary mt-4">
-                        Not jobs. Eras.
+                        Not jobs. Record.
                     </h2>
                 </motion.header>
 

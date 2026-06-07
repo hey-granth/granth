@@ -19,7 +19,7 @@ const BlogPost = () => {
                 <main className="relative z-10">
                     <Section id="blog" title="Post not found" className="pt-28">
                         <p className="text-text-secondary">That post does not exist.</p>
-                        <Link to="/blog" className="text-accent underline">Return to blog</Link>
+                        <Link to="/writing" className="text-accent underline">Return to writing</Link>
                     </Section>
                 </main>
                 <Footer />
@@ -40,11 +40,11 @@ const BlogPost = () => {
                 >
                     <div className="blog-post-reader">
                         <div className="mb-6 flex items-center justify-between gap-4 text-base text-text-muted">
-                            <Link to="/blog" className="inline-flex items-center gap-2 text-text-secondary hover:text-accent">
+                            <Link to="/writing" className="inline-flex items-center gap-2 text-text-secondary hover:text-accent">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" className="w-4 h-4" stroke="currentColor" strokeWidth={1.5}>
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
                                 </svg>
-                                Back to blog
+                                Back to writing
                             </Link>
                             <span className="text-text-secondary">{post.formattedDate}</span>
                         </div>
@@ -89,7 +89,7 @@ const BlogPost = () => {
                                         </span>
                                     ))}
                                 </div>
-                                <Link to="/blog" className="text-accent font-medium">Back to all posts</Link>
+                                <Link to="/writing" className="text-accent font-medium">Back to all posts</Link>
                             </div>
                         </article>
                     </div>

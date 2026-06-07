@@ -1,13 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { navLinks, personalInfo } from '../../data/content';
+import { getNavLinkTo, isNavLinkActive } from '../../lib/navigation';
 
 const ease = [0.4, 0, 0.2, 1];
 
 const Navbar = () => {
     const [isVisible, setIsVisible] = useState(true);
-    const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [activeSection, setActiveSection] = useState('home');
     const [isLogoHovered, setIsLogoHovered] = useState(false);
@@ -16,7 +16,6 @@ const Navbar = () => {
 
     const { scrollY } = useScroll();
     const location = useLocation();
-    const navigate = useNavigate();
 
     useMotionValueEvent(scrollY, 'change', (latest) => {
         const previous = lastScrollY.current;
@@ -28,14 +27,18 @@ const Navbar = () => {
             setIsVisible(true);
         }
 
-        setIsScrolled(latest > 50);
         setScrollDepth(Math.min(latest / 100, 1));
         lastScrollY.current = latest;
     });
 
     useEffect(() => {
+        if (location.pathname !== '/' && location.pathname !== '/projects') {
+            setActiveSection('');
+            return undefined;
+        }
+
         const handleScroll = () => {
-            const sectionIds = ['home', 'work', 'philosophy', 'eras', 'credentials', 'contact'];
+            const sectionIds = ['home', 'work', 'approach', 'record', 'credentials', 'contact'];
 
             for (const sectionId of [...sectionIds].reverse()) {
                 const element = document.getElementById(sectionId);
@@ -49,9 +52,10 @@ const Navbar = () => {
             }
         };
 
-        window.addEventListener('scroll', handleScroll);
+        handleScroll();
+        window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+    }, [location.pathname]);
 
     // Lock body scroll when mobile menu is open
     useEffect(() => {
@@ -63,29 +67,62 @@ const Navbar = () => {
         return () => { document.body.style.overflow = ''; };
     }, [isMobileMenuOpen]);
 
-    const scrollToSection = (href) => {
-        const element = document.querySelector(href);
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-        }
-        setIsMobileMenuOpen(false);
-    };
+    const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
-    const handleSectionClick = (e, href) => {
-        e.preventDefault();
-        setIsMobileMenuOpen(false);
+    const renderNavLink = (link, { mobile = false } = {}) => {
+        const navLinkTo = getNavLinkTo(link);
+        const isActive = isNavLinkActive(link, location.pathname, activeSection);
 
-        if (location.pathname.startsWith('/blog')) {
-            navigate('/' + href);
-            setTimeout(() => {
-                const element = document.querySelector(href);
-                if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' });
-                }
-            }, 100);
-        } else {
-            scrollToSection(href);
-        }
+        const linkStyle = mobile
+            ? {
+                fontFamily: 'var(--font-sans)',
+                fontSize: '18px',
+                letterSpacing: '1px',
+                textTransform: 'uppercase',
+                fontWeight: isActive ? 600 : 400,
+                color: isActive ? 'var(--color-plum)' : 'rgba(40,30,70,0.85)',
+                textDecoration: 'none',
+                transition: 'color 150ms ease, transform 150ms ease',
+                display: 'block',
+            }
+            : {
+                fontFamily: 'var(--font-sans)',
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+                fontSize: '0.8125rem',
+                color: isActive ? 'var(--color-plum)' : 'rgba(40,30,70,0.85)',
+            };
+
+        const commonClasses = mobile
+            ? 'mobile-menu-item'
+            : `px-3 py-2 text-sm tracking-wider transition-colors duration-200 ${isActive ? 'text-plum font-medium' : ''}`;
+
+        const handleMouseEnter = (event) => {
+            if (!isActive) {
+                event.currentTarget.style.color = '#7E64E8';
+            }
+        };
+
+        const handleMouseLeave = (event) => {
+            if (!isActive) {
+                event.currentTarget.style.color = mobile ? 'rgba(40,30,70,0.85)' : 'rgba(40,30,70,0.85)';
+            }
+        };
+
+        return (
+            <Link
+                key={link.name}
+                to={navLinkTo}
+                className={commonClasses}
+                style={linkStyle}
+                onClick={closeMobileMenu}
+                onMouseEnter={mobile ? undefined : handleMouseEnter}
+                onMouseLeave={mobile ? undefined : handleMouseLeave}
+                aria-current={isActive ? 'page' : undefined}
+            >
+                {link.name}
+            </Link>
+        );
     };
 
     // Scroll-reactive nav styles
@@ -130,6 +167,7 @@ const Navbar = () => {
                             }}
                             onMouseEnter={() => setIsLogoHovered(true)}
                             onMouseLeave={() => setIsLogoHovered(false)}
+                            onClick={closeMobileMenu}
                         >
                             {/* Short state: G */}
                             <span
@@ -165,46 +203,7 @@ const Navbar = () => {
 
                         {/* Desktop nav */}
                         <div className="hidden md:flex items-center gap-1">
-                            {navLinks.map((link) => {
-                                const sectionId = link.href.replace('#', '');
-                                const isActive = link.external
-                                    ? (link.href === '/blog' && location.pathname.startsWith('/blog')) ||
-                                    (link.href === '/projects' && location.pathname === '/projects')
-                                    : activeSection === sectionId;
-
-                                const commonClasses = `px-3 py-2 text-sm tracking-wider transition-colors duration-200 ${isActive ? 'text-plum font-medium' : ''
-                                    }`;
-
-                                const linkStyle = {
-                                    fontFamily: 'var(--font-sans)',
-                                    letterSpacing: '0.08em',
-                                    textTransform: 'uppercase',
-                                    fontSize: '0.8125rem',
-                                    color: isActive ? 'var(--color-plum)' : 'rgba(40,30,70,0.85)',
-                                };
-
-                                if (link.external) {
-                                    return (
-                                        <Link key={link.name} to={link.href} className={commonClasses} style={linkStyle}>
-                                            {link.name}
-                                        </Link>
-                                    );
-                                }
-
-                                return (
-                                    <a
-                                        key={link.name}
-                                        href={link.href}
-                                        className={commonClasses}
-                                        style={linkStyle}
-                                        onClick={(e) => handleSectionClick(e, link.href)}
-                                        onMouseEnter={(e) => { if (!isActive) e.target.style.color = '#7E64E8'; }}
-                                        onMouseLeave={(e) => { if (!isActive) e.target.style.color = 'rgba(40,30,70,0.85)'; }}
-                                    >
-                                        {link.name}
-                                    </a>
-                                );
-                            })}
+                            {navLinks.map((link) => renderNavLink(link))}
                         </div>
 
                         {/* Hamburger — morphs ☰ → × */}
@@ -279,51 +278,7 @@ const Navbar = () => {
                                 padding: '32px',
                             }}
                         >
-                            {navLinks.map((link) => {
-                                const sectionId = link.href.replace('#', '');
-                                const isActive = link.external
-                                    ? (link.href === '/blog' && location.pathname.startsWith('/blog')) ||
-                                    (link.href === '/projects' && location.pathname === '/projects')
-                                    : activeSection === sectionId;
-
-                                const itemStyle = {
-                                    fontFamily: 'var(--font-sans)',
-                                    fontSize: '18px',
-                                    letterSpacing: '1px',
-                                    textTransform: 'uppercase',
-                                    fontWeight: isActive ? 600 : 400,
-                                    color: isActive ? 'var(--color-plum)' : 'rgba(40,30,70,0.85)',
-                                    textDecoration: 'none',
-                                    transition: 'color 150ms ease, transform 150ms ease',
-                                    display: 'block',
-                                };
-
-                                if (link.external) {
-                                    return (
-                                        <Link
-                                            key={link.name}
-                                            to={link.href}
-                                            style={itemStyle}
-                                            className="mobile-menu-item"
-                                            onClick={() => setIsMobileMenuOpen(false)}
-                                        >
-                                            {link.name}
-                                        </Link>
-                                    );
-                                }
-
-                                return (
-                                    <a
-                                        key={link.name}
-                                        href={link.href}
-                                        style={itemStyle}
-                                        className="mobile-menu-item"
-                                        onClick={(e) => handleSectionClick(e, link.href)}
-                                    >
-                                        {link.name}
-                                    </a>
-                                );
-                            })}
+                            {navLinks.map((link) => renderNavLink(link, { mobile: true }))}
                         </div>
                     </div>
                 </div>

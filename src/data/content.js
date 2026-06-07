@@ -7,7 +7,7 @@ export const personalInfo = {
     github: "https://github.com/hey-granth",
     linkedin: "https://linkedin.com/in/granth-agarwal",
     twitter: "https://x.com/heygranth",
-    resume: "https://drive.google.com/file/d/1f9UI9PytDrNbUJp5ZuBRF00sSTy-La7S/view?usp=sharing",
+    resume: "/resume",
 };
 
 // Hero
@@ -201,9 +201,10 @@ export const proof = {
         { value: "1", label: "Patent" },
     ],
     stack: {
-        core: ["Python", "Go", "JavaScript", "Dart", "Django", "DRF", "FastAPI", "Flask", "SQLAlchemy", "Pydantic", "Celery", "Docker", "Nginx", "pytest"],
-        data: ["PostgreSQL", "MySQL", "SQLite", "pgvector", "Redis", "RabbitMQ", "Supabase"],
-        infra: ["GCP", "Linux", "Git", "Postman"],
+        backend: ["Python", "Go", "Django", "DRF", "FastAPI", "Flask", "Celery", "Pydantic", "SQLAlchemy"],
+        data: ["PostgreSQL", "Redis", "pgvector", "PostGIS", "RabbitMQ", "Supabase", "Neon", "MySQL", "SQLite", "LanceDB"],
+        frontend: ["TypeScript", "React", "Next.js", "Astro", "JavaScript", "Dart"],
+        operations: ["Docker", "Linux", "Nginx", "AWS", "GCP", "Vercel", "Render", "Git", "pytest", "Playwright", "Locust", "CI/CD", "uv", "Postman"],
     },
 };
 
@@ -219,11 +220,11 @@ export const closing = {
 
 // Navigation
 export const navLinks = [
-    { name: "Work", href: "#work" },
-    { name: "Projects", href: "/projects", external: true },
-    { name: "Approach", href: "#philosophy" },
-    { name: "Record", href: "#eras" },
-    { name: "Credentials", href: "#credentials" },
-    { name: "Contact", href: "#contact" },
-    { name: "Writing", href: "/blog", external: true },
+    { name: "Work", type: "section", hash: "work" },
+    { name: "Projects", type: "route", path: "/projects" },
+    { name: "Approach", type: "section", hash: "approach" },
+    { name: "Record", type: "section", hash: "record" },
+    { name: "Credentials", type: "section", hash: "credentials" },
+    { name: "Contact", type: "section", hash: "contact" },
+    { name: "Writing", type: "route", path: "/writing", aliases: ["/blog"] },
 ];

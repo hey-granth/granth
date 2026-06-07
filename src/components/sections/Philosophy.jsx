@@ -9,7 +9,7 @@ const Philosophy = () => {
     const isInView = useInView(ref, { once: true, margin: '-100px' });
 
     return (
-        <section id="philosophy" ref={ref} className="section-padding relative">
+        <section id="approach" ref={ref} className="section-padding relative">
             {/* Subtle section background wash */}
             <div
                 className="absolute inset-0 pointer-events-none"

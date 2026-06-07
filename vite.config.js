@@ -3,13 +3,54 @@ import react from '@vitejs/plugin-react';
 import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill';
 import path from 'path';
 
+const RESUME_URL = 'https://drive.google.com/file/d/1bh0ua0dD4cwWCKQMByde2S3jvlPpt36m/view?usp=sharing';
+
+const resumeRedirectPlugin = () => ({
+  name: 'resume-redirect',
+  configureServer(server) {
+    server.middlewares.use((req, res, next) => {
+      if (!req.url) {
+        next();
+        return;
+      }
+
+      const requestUrl = new URL(req.url, 'http://localhost');
+      if (requestUrl.pathname !== '/resume' && requestUrl.pathname !== '/resume/') {
+        next();
+        return;
+      }
+
+      res.statusCode = 301;
+      res.setHeader('Location', RESUME_URL);
+      res.end();
+    });
+  },
+  configurePreviewServer(server) {
+    server.middlewares.use((req, res, next) => {
+      if (!req.url) {
+        next();
+        return;
+      }
+
+      const requestUrl = new URL(req.url, 'http://localhost');
+      if (requestUrl.pathname !== '/resume' && requestUrl.pathname !== '/resume/') {
+        next();
+        return;
+      }
+
+      res.statusCode = 301;
+      res.setHeader('Location', RESUME_URL);
+      res.end();
+    });
+  },
+});
+
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), resumeRedirectPlugin()],
   optimizeDeps: {
     esbuildOptions: {
       define: {
-
         global: 'globalThis',
       },
       plugins: [

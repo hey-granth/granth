@@ -64,6 +64,16 @@
     overflow-x: hidden;
   }
 
+  section[id] {
+    scroll-margin-top: 5.5rem;
+  }
+
+  @media (min-width: 768px) {
+    section[id] {
+      scroll-margin-top: 6.75rem;
+    }
+  }
+
   body {
     background-color: var(--color-cream);
     color: var(--color-text-primary);
@@ -361,12 +371,12 @@
   }
 
   /* ═══════════════════════════════════════════════════════════════
-     STACK SECTION — Clean editorial grid
+     STACK SECTION — Editorial list
   ═══════════════════════════════════════════════════════════════ */
 
   .stack-constellation {
     position: relative;
-    padding: 1.5rem 0 0;
+    padding: 1.25rem 0 0;
   }
 
   .stack-anchor {
@@ -377,7 +387,7 @@
   }
 
   .stack-descriptor {
-    margin-bottom: 1rem;
+    margin-bottom: 1.1rem;
     font-family: var(--font-sans);
     font-size: 0.8125rem;
     color: var(--color-text-secondary);
@@ -386,7 +396,7 @@
 
   .stack-anchor-text {
     font-family: var(--font-sans);
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-weight: 600;
     letter-spacing: 0.18em;
     text-transform: uppercase;
@@ -399,145 +409,92 @@
     background: linear-gradient(90deg, var(--color-divider-strong) 0%, transparent 80%);
   }
 
-  .stack-zones-symmetric {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
-    gap: 12px;
-    position: relative;
-    align-items: stretch;
-  }
-
-  .stack-category-divider {
-    grid-column: 1 / -1;
+  .stack-section-list {
     display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-top: 0.4rem;
+    flex-direction: column;
+    gap: 0;
   }
 
-  .stack-category-divider:first-child {
-    margin-top: 0;
+  .stack-section {
+    padding: 1rem 0 1.15rem;
+    border-top: 1px solid var(--color-divider);
   }
 
-  .stack-category-divider-text {
+  .stack-section:first-child {
+    padding-top: 0.85rem;
+    border-top: 0;
+  }
+
+  .stack-section-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .stack-category-title {
     font-family: var(--font-sans);
-    font-size: 0.72rem;
+    font-size: 0.76rem;
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--stack-accent);
-    text-decoration: underline;
-    text-decoration-color: color-mix(in srgb, var(--stack-accent) 60%, transparent);
-    text-underline-offset: 4px;
-    text-decoration-thickness: 1px;
+    color: var(--color-text-primary);
   }
 
-  .stack-category-divider-line {
-    height: 1px;
-    flex: 1;
-    background: linear-gradient(90deg, color-mix(in srgb, var(--stack-accent) 62%, transparent) 0%, transparent 85%);
-  }
-
-  .stack-tech-link {
+  .stack-pill-list {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.4rem;
-    min-width: 96px;
-    min-height: 96px;
-    padding: 0.7rem 0.45rem;
-    font-family: var(--font-sans);
-    font-size: 0.75rem;
-    color: var(--color-text-secondary);
-    background: rgba(255, 255, 255, 0.72);
-    border: 1px solid color-mix(in srgb, var(--stack-accent) 38%, transparent);
-    border-radius: 0.5rem;
-    backdrop-filter: blur(4px);
-    text-decoration: none;
-    cursor: pointer;
-    transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
   }
 
-  .stack-tech-icon {
-    width: 40px;
-    height: 40px;
-    object-fit: contain;
-    flex-shrink: 0;
+  .stack-pill-item {
+    flex: 0 0 auto;
   }
 
-  .stack-tech-icon-wrap {
-    width: 40px;
-    height: 40px;
+  .stack-pill {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-  }
-
-  .stack-tech-icon-fallback {
-    display: none;
-    align-items: center;
-    justify-content: center;
-    width: auto;
-    max-width: 40px;
-    min-height: 1rem;
-    color: #454545;
+    min-height: 2rem;
+    padding: 0.42rem 0.7rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-divider);
+    background: rgba(255, 255, 255, 0.58);
+    color: var(--color-text-primary);
     font-family: var(--font-sans);
-    font-size: 0.625rem;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    text-transform: none;
-    text-align: center;
-    line-height: 1.1;
-    padding: 0;
-    background: transparent;
-    border-radius: 0;
-  }
-
-  .stack-tech-label {
-    font-family: var(--font-sans);
-    font-size: 11px;
+    font-size: 0.84rem;
     font-weight: 500;
-    line-height: 1.25;
-    letter-spacing: 0.04em;
-    text-align: center;
-    color: #444;
-    word-break: break-word;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    transition: border-color 180ms ease, background-color 180ms ease, color 180ms ease, transform 180ms ease;
+    white-space: nowrap;
   }
 
-  .stack-tech-sub-label {
-    font-family: var(--font-sans);
-    font-size: 0.625rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+  .stack-pill:hover {
+    border-color: color-mix(in srgb, var(--stack-pill-accent, var(--color-plum)) 45%, var(--color-divider));
+    background: rgba(255, 255, 255, 0.82);
     color: var(--color-plum-deep);
+    transform: translateY(-1px);
   }
 
-  .stack-tech-link:hover {
-    background: rgba(255, 255, 255, 0.92);
-    border-color: var(--stack-accent, rgba(26, 26, 26, 0.25));
-    transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-  }
-
-  .stack-tech-link:focus-visible {
+  .stack-pill:focus-visible {
     outline: none;
-    border-color: var(--stack-accent, var(--color-plum));
-    box-shadow: 0 0 0 2px color-mix(in srgb, var(--stack-accent) 30%, transparent);
-  }
-
-  .stack-tech-link:active {
-    transform: translateY(0);
+    border-color: var(--stack-pill-accent, var(--color-plum));
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--stack-pill-accent) 26%, transparent);
   }
 
   .section-padding--stack {
-    padding-bottom: 2.75rem;
+    padding-bottom: 2.5rem;
   }
 
   @media (min-width: 768px) {
     .section-padding--stack {
-      padding-bottom: 3.5rem;
+      padding-bottom: 3rem;
     }
   }
 

@@ -1,4 +1,6 @@
+import { Link } from 'react-router-dom';
 import { personalInfo, navLinks } from '../../data/content';
+import { getNavLinkTo } from '../../lib/navigation';
 import ExternalLinkPreview from '../ui/ExternalLinkPreview';
 
 const icons = {
@@ -66,8 +68,8 @@ const Footer = () => {
 
                 {/* ═══ OVERSIZED NAME ═══ */}
                 <div className="mb-12 md:mb-16 overflow-hidden">
-                    <a
-                        href="#"
+                    <Link
+                        to="/"
                         className="text-display-footer block text-center transition-colors duration-300 hover:text-plum-deep"
                         style={{
                             opacity: 0.08,
@@ -75,7 +77,7 @@ const Footer = () => {
                         }}
                     >
                         GRANTH
-                    </a>
+                    </Link>
                 </div>
 
                 {/* Three-zone grid */}
@@ -83,10 +85,10 @@ const Footer = () => {
 
                     {/* Identity zone */}
                     <div className="md:col-span-5 space-y-3">
-                        <a href="#" className="footer-identity">
+                        <Link to="/" className="footer-identity">
                             {personalInfo.name.split(' ')[0]}
                             <span className="footer-identity-dot">.</span>
-                        </a>
+                        </Link>
                         <p className="footer-tagline">
                             Backend systems. Designed for load. Built to last.
                         </p>
@@ -98,9 +100,9 @@ const Footer = () => {
                         <nav className="footer-nav">
                             {navLinks.map((link, index) => (
                                 <span key={link.name} className="flex items-center">
-                                    <a href={link.href} className="footer-nav-link">
+                                    <Link to={getNavLinkTo(link)} className="footer-nav-link">
                                         {link.name}
-                                    </a>
+                                    </Link>
                                     {index < navLinks.length - 1 && (
                                         <span className="footer-nav-divider" />
                                     )}

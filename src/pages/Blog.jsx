@@ -15,7 +15,7 @@ const Blog = () => {
     return (
         <>
             <BackgroundDepth muted />
-            <Navbar anchored />
+            <Navbar />
             <main className="relative z-10">
                 <Section
                     id="blog"
@@ -45,7 +45,7 @@ const Blog = () => {
                                         ))}
                                     </div>
                                 </div>
-                                <Link to={`/blog/${post.slug}`} className="block mt-3 hover:text-accent transition-colors">
+                                <Link to={`/writing/${post.slug}`} className="block mt-3 hover:text-accent transition-colors">
                                     <h3 className="text-display-sm md:text-display-md font-bold leading-tight">{post.title}</h3>
                                 </Link>
                                 {post.summary && (
