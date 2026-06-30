@@ -1214,3 +1214,20 @@ button,
     scroll-behavior: auto;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   MERMAID DIAGRAMS
+═══════════════════════════════════════════════════════════════ */
+
+/* Prevent Mermaid SVGs from shrinking to fit the container */
+.mermaid-container svg {
+  max-width: none !important;
+  width: auto !important;
+  min-width: max-content;
+  height: auto;
+  display: block;
+}
+
+.mermaid-wrapper {
+  -webkit-overflow-scrolling: touch;
+}

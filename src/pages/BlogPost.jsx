@@ -6,6 +6,7 @@ import BackgroundDepth from '../components/BackgroundDepth';
 import Section from '../components/layout/Section';
 import { loadPostBySlug } from '../lib/markdown';
 import ExternalLinkPreview from '../components/ui/ExternalLinkPreview';
+import Mermaid from '../components/Mermaid';
 
 const BlogPost = () => {
     const { slug } = useParams();
@@ -74,6 +75,22 @@ const BlogPost = () => {
                                                     {children}
                                                 </ExternalLinkPreview>
                                             );
+                                        },
+                                        pre({ node, children, ...props }) {
+                                            const codeChild = node?.children?.[0];
+                                            if (codeChild?.tagName === 'code') {
+                                                const classNames = codeChild.properties?.className || [];
+                                                const isMermaid = Array.isArray(classNames)
+                                                    ? classNames.includes('language-mermaid')
+                                                    : classNames === 'language-mermaid';
+
+                                                if (isMermaid) {
+                                                    const textNode = codeChild.children?.[0];
+                                                    const chart = textNode?.type === 'text' ? textNode.value : '';
+                                                    return <Mermaid chart={chart} />;
+                                                }
+                                            }
+                                            return <pre {...props}>{children}</pre>;
                                         },
                                     }}
                                 >
