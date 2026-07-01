@@ -1,12 +1,9 @@
 import { useParams, Link } from 'react-router-dom';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
 import { Navbar, Footer } from '../components/layout';
 import BackgroundDepth from '../components/BackgroundDepth';
 import Section from '../components/layout/Section';
 import { loadPostBySlug } from '../lib/markdown';
-import ExternalLinkPreview from '../components/ui/ExternalLinkPreview';
-import Mermaid from '../components/Mermaid';
+import { MarkdownRenderer } from '../components/markdown/MarkdownRenderer';
 
 const BlogPost = () => {
     const { slug } = useParams();
@@ -51,51 +48,8 @@ const BlogPost = () => {
                         </div>
 
                         <article className="blog-post-surface">
-                            <div className="prose prose-invert blog-post-prose">
-                                <ReactMarkdown
-                                    remarkPlugins={[remarkGfm]}
-                                    components={{
-                                        a: ({ href, children, ...props }) => {
-                                            const isExternal = typeof href === 'string' && /^https?:\/\//i.test(href);
-
-                                            if (!href || !isExternal) {
-                                                return (
-                                                    <a href={href} {...props}>
-                                                        {children}
-                                                    </a>
-                                                );
-                                            }
-
-                                            return (
-                                                <ExternalLinkPreview
-                                                    url={href}
-                                                    isStatic={false}
-                                                    className={props.className}
-                                                >
-                                                    {children}
-                                                </ExternalLinkPreview>
-                                            );
-                                        },
-                                        pre({ node, children, ...props }) {
-                                            const codeChild = node?.children?.[0];
-                                            if (codeChild?.tagName === 'code') {
-                                                const classNames = codeChild.properties?.className || [];
-                                                const isMermaid = Array.isArray(classNames)
-                                                    ? classNames.includes('language-mermaid')
-                                                    : classNames === 'language-mermaid';
-
-                                                if (isMermaid) {
-                                                    const textNode = codeChild.children?.[0];
-                                                    const chart = textNode?.type === 'text' ? textNode.value : '';
-                                                    return <Mermaid chart={chart} />;
-                                                }
-                                            }
-                                            return <pre {...props}>{children}</pre>;
-                                        },
-                                    }}
-                                >
-                                    {post.content}
-                                </ReactMarkdown>
+                            <div className="blog-post-prose">
+                                <MarkdownRenderer content={post.content} />
                             </div>
 
                             <div className="mt-8 flex items-center justify-between text-base text-text-muted">
